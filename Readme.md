@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Дмитрий Соловьев](https://up.htmlacademy.ru/react/6/user/42080).
-* Наставник: `Неизвестно`.
+* Наставник: [Иван Шалагин](https://htmlacademy.ru/profile/id386947).
 
 ---
 
