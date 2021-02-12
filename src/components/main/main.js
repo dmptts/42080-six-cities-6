@@ -4,7 +4,6 @@ import PlaceCard from '../place-card/place-card';
 
 const Main = (props) => {
   const {placeCardCount} = props;
-  const blankArr = new Array(placeCardCount).fill();
 
   return (
     <div className="page page--gray page--main">
@@ -90,7 +89,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {blankArr.map((item) => <PlaceCard key={blankArr.indexOf(item)} />)}
+                {new Array(placeCardCount).fill().map((item, i) => <PlaceCard key={i} />)}
               </div>
             </section>
             <div className="cities__right-section">
