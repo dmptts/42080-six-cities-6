@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card';
+import OffersList from '../offers-list/offers-list';
 
 const Main = (props) => {
-  const {placeCardCount} = props;
+  const {offers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -88,9 +88,10 @@ const Main = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {new Array(placeCardCount).fill().map((item, i) => <PlaceCard key={i} />)}
-              </div>
+              <OffersList offers={offers} />
+              {/* <div className="cities__places-list places__list tabs__content">
+                {offers.map((item) => <OfferCard key={item.id} offer={item} />)}
+              </div> */}
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -103,7 +104,7 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  placeCardCount: PropTypes.number.isRequired
+  offers: PropTypes.array.isRequired
 };
 
 export default Main;

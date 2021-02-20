@@ -8,13 +8,13 @@ import Offer from '../offer/offer';
 import NotFound from '../not-found/not-found';
 
 const App = (props) => {
-  const {placeCardCount} = props;
+  const {offers} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <Main placeCardCount={placeCardCount} />;
+          <Main offers={offers} />;
         </Route>
         <Route path="/login" exact>
           <Login />
@@ -22,7 +22,7 @@ const App = (props) => {
         <Route path="/favorites" exact>
           <Favorites />
         </Route>
-        <Route path="/offer/:id?" exact>
+        <Route path="/offer/:id?" offers={offers} exact>
           <Offer />
         </Route>
         <Route>
@@ -34,7 +34,7 @@ const App = (props) => {
 };
 
 App.propTypes = {
-  placeCardCount: PropTypes.number.isRequired
+  offers: PropTypes.array.isRequired
 };
 
 export default App;
