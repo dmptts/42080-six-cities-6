@@ -20,10 +20,10 @@ const App = (props) => {
           <Login />
         </Route>
         <Route path="/favorites" exact>
-          <Favorites />
+          <Favorites offers={offers} />
         </Route>
-        <Route path="/offer/:id?" offers={offers} exact>
-          <Offer />
+        <Route path="/offer/:id?" exact>
+          <Offer offers={offers} />
         </Route>
         <Route>
           <NotFound />
