@@ -1,13 +1,19 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
 
 const Offer = () => {
+  const history = useHistory();
+
   return (
     <React.Fragment>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <a
+                className="header__logo-link"
+                onClick={() => history.push(`/`)}
+              >
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>

@@ -1,25 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {useHistory} from 'react-router-dom';
 
 const OfferCard = (props) => {
   const {offer, setActiveCard} = props;
-  const {title, previewImage, price, isPremium, type, rating} = offer;
+  const {id, title, previewImage, price, isPremium, type, rating} = offer;
+
+  const history = useHistory();
 
   return (
     <article
       className="cities__place-card place-card"
-      onMouseOver={() => {
-        setActiveCard(offer);
-      }}
-      onMouseOut={() => {
-        setActiveCard(null);
-      }}
+      onMouseOver={() => setActiveCard(offer)}
+      onMouseOut={() => setActiveCard(null)}
+      onClick={() => history.push(`/offer/` + id)}
     >
       {isPremium ? <div className="place-card__mark">
         <span>Premium</span>
       </div> : ``}
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href="#">
+        <a>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
       </div>
@@ -43,7 +43,7 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <a>{title}</a>
         </h2>
         <p className="place-card__type">{type[0].toUpperCase() + type.slice(1)}</p>
       </div>

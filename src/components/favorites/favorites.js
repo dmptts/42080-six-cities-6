@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Cities} from '../../const';
+import {useHistory} from 'react-router-dom';
 
 const Favorites = ({offers}) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const favoritesCities = favoriteOffers.map((offer) => offer.city);
   const favoritesCitiesInOrder = Cities.filter((city) => favoritesCities.includes(city)); // Позволяет сохранить последовательность городов в соответсвие с главной страницей
+
+  const history = useHistory();
 
   return (
     <React.Fragment>
@@ -13,14 +16,17 @@ const Favorites = ({offers}) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
+              <a
+                className="header__logo-link"
+                onClick={() => history.push(`/`)}
+              >
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <a className="header__nav-link header__nav-link--profile">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -93,7 +99,10 @@ const Favorites = ({offers}) => {
       </main>
 
       <footer className="footer container">
-        <a className="footer__logo-link" href="main.html">
+        <a
+          className="footer__logo-link"
+          onClick={() => history.push(`/`)}
+        >
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
         </a>
       </footer>
