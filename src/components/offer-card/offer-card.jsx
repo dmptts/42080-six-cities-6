@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
+import {offerPropTypes} from '../../utils';
 
 const OfferCard = (props) => {
   const {offer, setActiveCard} = props;
@@ -52,7 +53,7 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
-  offer: PropTypes.object.isRequired,
+  offer: offerPropTypes,
   setActiveCard: PropTypes.func.isRequired
 };
 

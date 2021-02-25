@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import OffersList from '../offers-list/offers-list';
 import {useHistory} from 'react-router-dom';
+import {offersPropTypes} from '../../utils';
 
 const Main = (props) => {
   const {offers} = props;
@@ -103,8 +103,6 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  offers: PropTypes.array.isRequired
-};
+Main.propTypes = {offers: offersPropTypes};
 
 export default Main;

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card';
+import {offersPropTypes} from '../../utils';
 
 const OffersList = ({offers}) => {
   const [, setActiveCard] = useState(null);
@@ -16,8 +16,6 @@ const OffersList = ({offers}) => {
   </div>;
 };
 
-OffersList.propTypes = {
-  offers: PropTypes.array.isRequired
-};
+OffersList.propTypes = {offers: offersPropTypes};
 
 export default OffersList;

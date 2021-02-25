@@ -1,7 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Cities} from '../../const';
 import {useHistory} from 'react-router-dom';
+import {offersPropTypes} from '../../utils';
 
 const Favorites = ({offers}) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
@@ -110,8 +110,6 @@ const Favorites = ({offers}) => {
   );
 };
 
-Favorites.propTypes = {
-  offers: PropTypes.array.isRequired
-};
+Favorites.propTypes = {offers: offersPropTypes};
 
 export default Favorites;
