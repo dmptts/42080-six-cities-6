@@ -1,9 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card';
+import OffersList from '../offers-list/offers-list';
+import {useHistory} from 'react-router-dom';
+import {offersPropTypes} from '../../utils';
 
 const Main = (props) => {
-  const {placeCardCount} = props;
+  const {offers} = props;
+
+  const history = useHistory();
 
   return (
     <div className="page page--gray page--main">
@@ -18,7 +21,7 @@ const Main = (props) => {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <a className="header__nav-link header__nav-link--profile" onClick={() => history.push(`/favorites`)}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
@@ -72,7 +75,7 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -88,9 +91,7 @@ const Main = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {new Array(placeCardCount).fill().map((item, i) => <PlaceCard key={i} />)}
-              </div>
+              <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -102,8 +103,6 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  placeCardCount: PropTypes.number.isRequired
-};
+Main.propTypes = {offers: offersPropTypes};
 
 export default Main;
