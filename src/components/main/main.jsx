@@ -1,5 +1,6 @@
 import React from 'react';
 import OffersList from '../offers-list/offers-list';
+import Map from '../map/map';
 import {useHistory} from 'react-router-dom';
 import {offersPropTypes} from '../../utils';
 
@@ -94,7 +95,7 @@ const Main = (props) => {
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map offers={offers} />
             </div>
           </div>
         </div>
