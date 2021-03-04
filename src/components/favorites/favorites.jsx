@@ -1,7 +1,7 @@
 import React from 'react';
 import {Cities} from '../../const';
 import {useHistory} from 'react-router-dom';
-import {offersPropTypes} from '../../utils';
+import offersPropTypes from '../offers-list/offers-list.prop';
 
 const Favorites = ({offers}) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
-import {offerPropTypes} from '../../utils';
+import offerPropTypes from '../offer/offer.prop';
 
 const OfferCard = (props) => {
   const {offer, setActiveCard} = props;

@@ -5,10 +5,11 @@ import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import Offer from '../offer/offer';
 import NotFound from '../not-found/not-found';
-import {offersPropTypes} from '../../utils';
+import offersPropTypes from '../offers-list/offers-list.prop';
+import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 
 const App = (props) => {
-  const {offers} = props;
+  const {offers, reviews} = props;
 
   return (
     <BrowserRouter>
@@ -23,7 +24,7 @@ const App = (props) => {
           <Favorites offers={offers} />
         </Route>
         <Route path="/offer/:id?" exact>
-          <Offer offers={offers} />
+          <Offer offers={offers} reviews={reviews} />
         </Route>
         <Route>
           <NotFound />
@@ -33,6 +34,9 @@ const App = (props) => {
   );
 };
 
-App.propTypes = {offers: offersPropTypes};
+App.propTypes = {
+  offers: offersPropTypes,
+  reviews: reviewsPropTypes
+};
 
 export default App;

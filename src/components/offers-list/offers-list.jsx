@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import OfferCard from '../offer-card/offer-card';
-import {offersPropTypes} from '../../utils';
+import offersPropTypes from '../offers-list/offers-list.prop';
 
 const OffersList = ({offers}) => {
   const [, setActiveCard] = useState(null);
