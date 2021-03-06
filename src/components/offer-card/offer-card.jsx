@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
-import {offerPropTypes} from '../../utils';
+import offerPropTypes from '../offer/offer.prop';
 
 const OfferCard = (props) => {
-  const {offer, setActiveCard} = props;
+  const {cardClasses, offer, setActiveCard} = props;
   const {id, title, previewImage, price, isPremium, type, rating} = offer;
 
   const history = useHistory();
 
   return (
     <article
-      className="cities__place-card place-card"
+      className={`${cardClasses} place-card`}
       onMouseOver={() => setActiveCard(offer)}
       onMouseOut={() => setActiveCard(null)}
       onClick={() => history.push(`/offer/` + id)}
@@ -19,7 +19,7 @@ const OfferCard = (props) => {
       {isPremium ? <div className="place-card__mark">
         <span>Premium</span>
       </div> : ``}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${cardClasses}__image-wrapper place-card__image-wrapper`}>
         <a>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </a>
@@ -53,6 +53,7 @@ const OfferCard = (props) => {
 };
 
 OfferCard.propTypes = {
+  cardClasses: PropTypes.string.isRequired,
   offer: offerPropTypes,
   setActiveCard: PropTypes.func.isRequired
 };

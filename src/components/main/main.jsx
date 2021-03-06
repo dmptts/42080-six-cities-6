@@ -2,7 +2,7 @@ import React from 'react';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import {useHistory} from 'react-router-dom';
-import {offersPropTypes} from '../../utils';
+import offersPropTypes from '../offers-list/offers-list.prop';
 
 const Main = (props) => {
   const {offers} = props;
@@ -92,10 +92,10 @@ const Main = (props) => {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers} />
+              <OffersList listClasses={`tabs__content cities__places-list`} cardClasses={`cities__place-card`} offers={offers} />
             </section>
             <div className="cities__right-section">
-              <Map offers={offers} />
+              <Map className={`cities__map`} offers={offers} />
             </div>
           </div>
         </div>

@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
+import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card';
-import {offersPropTypes} from '../../utils';
+import offersPropTypes from '../offers-list/offers-list.prop';
 
-const OffersList = ({offers}) => {
+const OffersList = ({listClasses, cardClasses, offers}) => {
   const [, setActiveCard] = useState(null);
 
-  return <div className="cities__places-list places__list tabs__content">
+  return <div className={`${listClasses} places__list`}>
     {offers.map((offer) =>
       <OfferCard
+        cardClasses={cardClasses}
         key={offer.id}
         offer={offer}
         setActiveCard={setActiveCard}
@@ -16,6 +18,10 @@ const OffersList = ({offers}) => {
   </div>;
 };
 
-OffersList.propTypes = {offers: offersPropTypes};
+OffersList.propTypes = {
+  listClasses: PropTypes.string.isRequired,
+  cardClasses: PropTypes.string.isRequired,
+  offers: offersPropTypes
+};
 
 export default OffersList;

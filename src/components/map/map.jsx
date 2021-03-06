@@ -1,10 +1,11 @@
 import React, {useEffect, useRef} from 'react';
+import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
-import {offersPropTypes} from '../../utils';
+import offersPropTypes from '../offers-list/offers-list.prop';
 
 import '../../../node_modules/leaflet/dist/leaflet.css';
 
-const Map = ({offers}) => {
+const Map = ({className, offers}) => {
   const offerCoords = offers.map((offer) => [offer.location.latitude, offer.location.longitude]);
   const city = [52.38333, 4.9];
   const mapRef = useRef();
@@ -42,9 +43,12 @@ const Map = ({offers}) => {
     };
   });
 
-  return <section id="map" className="cities__map map" ref={mapRef}></section>;
+  return <section id="map" className={`${className} map`} ref={mapRef}></section>;
 };
 
-Map.propTypes = {offers: offersPropTypes};
+Map.propTypes = {
+  className: PropTypes.string,
+  offers: offersPropTypes
+};
 
 export default Map;
