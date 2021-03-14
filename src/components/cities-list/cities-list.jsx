@@ -1,12 +1,18 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/actions';
 import citiesPropTypes from './cities-list.prop';
 
 const CitiesList = (props) => {
-  const {cities} = props;
+  const {cities, currentCity} = props;
 
-  return <ul className="locations__list tabs__list">
-    {cities.map((city) => <li key={city} className="locations__item">
-      <a className="locations__item-link tabs__item">
+  return <ul className={`locations__list tabs__list`}>
+    {cities.map((city) => <li
+      key={city}
+      className="locations__item"
+    >
+      <a className={`locations__item-link tabs__item + ${currentCity === city ? ` tabs__item--active` : ``}`}>
         <span>{city}</span>
       </a>
     </li>
@@ -15,7 +21,20 @@ const CitiesList = (props) => {
 };
 
 CitiesList.propTypes = {
-  cities: citiesPropTypes
+  cities: citiesPropTypes,
+  currentCity: PropTypes.string.isRequired
 };
 
-export default CitiesList;
+const mapStateToProps = (state) => ({
+  currentCity: state.city
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onCityClick(city) {
+    dispatch(ActionCreator.changeCity(city));
+  }
+});
+
+
+export {CitiesList};
+export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);

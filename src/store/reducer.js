@@ -2,7 +2,7 @@ import offers from '../mock/offers';
 import {ActionsType} from './actions';
 
 const initialState = {
-  city: `Amsterdam`,
+  city: `Paris`,
   offers
 };
 
