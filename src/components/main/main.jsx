@@ -5,6 +5,7 @@ import Map from '../map/map';
 import {useHistory} from 'react-router-dom';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import citiesPropTypes from '../cities-list/cities-list.prop';
+import {connect} from 'react-redux';
 
 const Main = (props) => {
   const {offers, cities} = props;
@@ -66,7 +67,7 @@ const Main = (props) => {
               <OffersList listClasses={`tabs__content cities__places-list`} cardClasses={`cities__place-card`} />
             </section>
             <div className="cities__right-section">
-              <Map className={`cities__map`} offers={offers} />
+              <Map className={`cities__map`} />
             </div>
           </div>
         </div>
@@ -80,4 +81,8 @@ Main.propTypes = {
   cities: citiesPropTypes
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  offers: state.offers
+});
+
+export default connect(mapStateToProps, null)(Main);
