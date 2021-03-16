@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card';
 import offersPropTypes from '../offers-list/offers-list.prop';
+import {connect} from 'react-redux';
 
-const OffersList = ({listClasses, cardClasses, offers}) => {
+const OffersList = (props) => {
+  const {listClasses, cardClasses, offers} = props;
   const [, setActiveCard] = useState(null);
 
   return <div className={`${listClasses} places__list`}>
@@ -24,4 +26,8 @@ OffersList.propTypes = {
   offers: offersPropTypes
 };
 
-export default OffersList;
+const mapStateToProps = (state) => ({
+  offers: state.offers
+});
+
+export default connect(mapStateToProps, null)(OffersList);

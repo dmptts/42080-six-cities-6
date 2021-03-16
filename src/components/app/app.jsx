@@ -7,6 +7,7 @@ import Offer from '../offer/offer';
 import NotFound from '../not-found/not-found';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import reviewsPropTypes from '../reviews-list/reviews-list.prop';
+import {Cities} from '../../const';
 
 const App = (props) => {
   const {offers, reviews} = props;
@@ -15,7 +16,7 @@ const App = (props) => {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact>
-          <Main offers={offers} />;
+          <Main cities={Cities}/>;
         </Route>
         <Route path="/login" exact>
           <Login />
