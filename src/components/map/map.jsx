@@ -7,8 +7,10 @@ import offersPropTypes from '../offers-list/offers-list.prop';
 import '../../../node_modules/leaflet/dist/leaflet.css';
 
 const Map = (props) => {
-  const {className, offers} = props;
-  const offerCoords = offers.map((offer) => [offer.location.latitude, offer.location.longitude]);
+  const {className, offers, currentCity} = props;
+  const offerCoords = offers
+    .filter((offer) => offer.city === currentCity)
+    .map((offer) => [offer.location.latitude, offer.location.longitude]);
   const city = [52.38333, 4.9];
   const mapRef = useRef();
 
@@ -51,10 +53,12 @@ const Map = (props) => {
 
 Map.propTypes = {
   className: PropTypes.string,
+  currentCity: PropTypes.string.isRequired,
   offers: offersPropTypes
 };
 
 const mapStateToProps = (state) => ({
+  currentCity: state.city,
   offers: state.offers
 });
 

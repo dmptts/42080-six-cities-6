@@ -6,9 +6,10 @@ import {useHistory} from 'react-router-dom';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import citiesPropTypes from '../cities-list/cities-list.prop';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Main = (props) => {
-  const {offers, cities} = props;
+  const {offers, cities, currentCity} = props;
 
   const history = useHistory();
 
@@ -48,7 +49,7 @@ const Main = (props) => {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.length} places to stay in Amsterdam</b>
+              <b className="places__found">{offers.filter((offer) => offer.city === currentCity).length} places to stay in Amsterdam</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -78,10 +79,12 @@ const Main = (props) => {
 
 Main.propTypes = {
   offers: offersPropTypes,
-  cities: citiesPropTypes
+  cities: citiesPropTypes,
+  currentCity: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  currentCity: state.city,
   offers: state.offers
 });
 
