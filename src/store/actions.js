@@ -1,10 +1,16 @@
-export const ActionsType = {
-  CHANGE_CITY: `main/changeCity`
+export const ActionsTypes = {
+  CHANGE_CITY: `main/changeCity`,
+  CHANGE_SORTING: `main/changeSorting`
 };
 
 export const ActionCreator = {
   changeCity: (city) => ({
-    type: ActionsType.CHANGE_CITY,
+    type: ActionsTypes.CHANGE_CITY,
     payload: city
+  }),
+
+  changeSorting: (sortingType) => ({
+    type: ActionsTypes.CHANGE_SORTING,
+    payload: sortingType
   })
 };
