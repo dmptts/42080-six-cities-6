@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card';
 import offersPropTypes from '../offers-list/offers-list.prop';
@@ -8,7 +8,6 @@ import {SortingTypes} from '../../const';
 
 const OffersList = (props) => {
   const {listClasses, cardClasses, offers, currentCity, sortingType} = props;
-  const [, setActiveCard] = useState(null);
 
   const sortedOffers = (sortingType === SortingTypes.POPULARITY_DESCENDING) ? offers : sortOffers(offers.slice(), sortingType);
 
@@ -18,7 +17,6 @@ const OffersList = (props) => {
         cardClasses={cardClasses}
         key={offer.id}
         offer={offer}
-        setActiveCard={setActiveCard}
       />
     )}
   </div>;

@@ -5,6 +5,7 @@ import {DEFAULT_CITY, SortingTypes} from '../const';
 const initialState = {
   city: DEFAULT_CITY,
   sortingType: SortingTypes.POPULARITY_DESCENDING,
+  activeCard: null,
   offers
 };
 
@@ -19,6 +20,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         sortingType: action.payload
+      };
+    case ActionsTypes.SET_ACTIVE_CARD:
+      return {
+        ...state,
+        activeCard: action.payload
+      };
+    case ActionsTypes.UNSET_ACTIVE_CARD:
+      return {
+        ...state,
+        activeCard: action.payload
       };
     default:
       return state;

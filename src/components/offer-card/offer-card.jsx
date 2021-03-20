@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {useHistory} from 'react-router-dom';
 import offerPropTypes from '../offer/offer.prop';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/actions';
 
 const OfferCard = (props) => {
-  const {cardClasses, offer, setActiveCard} = props;
+  const {cardClasses, offer, onCardHover, onCardBlur} = props;
   const {id, title, previewImage, price, isPremium, type, rating} = offer;
 
   const history = useHistory();
@@ -12,8 +14,8 @@ const OfferCard = (props) => {
   return (
     <article
       className={`${cardClasses} place-card`}
-      onMouseOver={() => setActiveCard(offer)}
-      onMouseOut={() => setActiveCard(null)}
+      onMouseOver={() => onCardHover(offer)}
+      onMouseOut={() => onCardBlur(null)}
       onClick={() => history.push(`/offer/` + id)}
     >
       {isPremium ? <div className="place-card__mark">
@@ -55,7 +57,19 @@ const OfferCard = (props) => {
 OfferCard.propTypes = {
   cardClasses: PropTypes.string.isRequired,
   offer: offerPropTypes,
-  setActiveCard: PropTypes.func.isRequired
+  onCardHover: PropTypes.func.isRequired,
+  onCardBlur: PropTypes.func.isRequired
 };
 
-export default OfferCard;
+const mapDispatchToProps = (dispatch) => ({
+  onCardHover: (card) => {
+    dispatch(ActionCreator.setActiveCard(card));
+  },
+
+  onCardBlur: () => {
+    dispatch(ActionCreator.unsetActiveCard());
+  }
+});
+
+export {OfferCard};
+export default connect(null, mapDispatchToProps)(OfferCard);
