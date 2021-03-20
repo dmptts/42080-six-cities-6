@@ -57,7 +57,7 @@ const Map = (props) => {
     });
 
     leaflet.layerGroup(pins).addTo(mapRef.current);
-  }, [offers, activeCard]);
+  }, [currentCity, offers, activeCard]);
 
   return <section id="map" className={`${className} map`} ref={mapRef}></section>;
 };

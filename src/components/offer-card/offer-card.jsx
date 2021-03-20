@@ -14,8 +14,8 @@ const OfferCard = (props) => {
   return (
     <article
       className={`${cardClasses} place-card`}
-      onMouseOver={() => onCardHover(offer)}
-      onMouseOut={() => onCardBlur(null)}
+      onMouseEnter={() => onCardHover(offer)}
+      onMouseLeave={() => onCardBlur(null)}
       onClick={() => history.push(`/offer/` + id)}
     >
       {isPremium ? <div className="place-card__mark">
