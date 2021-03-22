@@ -1,20 +1,22 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import {connect} from 'react-redux';
+import {sortOffers} from '../../utils';
+import {SortingTypes} from '../../const';
 
 const OffersList = (props) => {
-  const {listClasses, cardClasses, offers} = props;
-  const [, setActiveCard] = useState(null);
+  const {listClasses, cardClasses, offers, currentCity, sortingType} = props;
+
+  const sortedOffers = (sortingType === SortingTypes.POPULARITY_DESCENDING) ? offers : sortOffers(offers.slice(), sortingType);
 
   return <div className={`${listClasses} places__list`}>
-    {offers.map((offer) =>
+    {sortedOffers.map((offer) => offer.city === currentCity &&
       <OfferCard
         cardClasses={cardClasses}
         key={offer.id}
         offer={offer}
-        setActiveCard={setActiveCard}
       />
     )}
   </div>;
@@ -23,10 +25,14 @@ const OffersList = (props) => {
 OffersList.propTypes = {
   listClasses: PropTypes.string.isRequired,
   cardClasses: PropTypes.string.isRequired,
+  currentCity: PropTypes.string.isRequired,
+  sortingType: PropTypes.string.isRequired,
   offers: offersPropTypes
 };
 
 const mapStateToProps = (state) => ({
+  currentCity: state.city,
+  sortingType: state.sortingType,
   offers: state.offers
 });
 

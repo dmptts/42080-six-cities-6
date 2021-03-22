@@ -5,19 +5,14 @@ import {connect} from 'react-redux';
 import offersPropTypes from '../offers-list/offers-list.prop';
 
 import '../../../node_modules/leaflet/dist/leaflet.css';
+import offerPropTypes from '../offer/offer.prop';
 
 const Map = (props) => {
-  const {className, offers} = props;
-  const offerCoords = offers.map((offer) => [offer.location.latitude, offer.location.longitude]);
+  const {className, offers, currentCity, activeCard} = props;
   const city = [52.38333, 4.9];
   const mapRef = useRef();
 
   useEffect(() => {
-    const icon = leaflet.icon({
-      iconUrl: `./img/pin.svg`,
-      iconSize: [30, 30]
-    });
-
     const zoom = 12;
 
     mapRef.current = leaflet.map(`map`, {
@@ -35,26 +30,48 @@ const Map = (props) => {
     })
     .addTo(mapRef.current);
 
-    offerCoords.forEach((coords) => {
-      leaflet
-      .marker(coords, {icon})
-      .addTo(mapRef.current);
-    });
-
     return () => {
       mapRef.current.remove();
     };
-  });
+  }, [currentCity]);
+
+  useEffect(() => {
+    const inactiveIconUrl = `./img/pin.svg`;
+    const activeIconUrl = `./img/pin-active.svg`;
+    const iconSize = [30, 30];
+
+    const pins = offers
+    .filter((offer) => offer.city === currentCity)
+    .map((offer) => {
+      const iconUrl = (activeCard && offer.id === activeCard.id) ? activeIconUrl : inactiveIconUrl;
+
+      const icon = leaflet.icon({
+        iconUrl,
+        iconSize
+      });
+
+      return leaflet.marker(
+          [offer.location.latitude, offer.location.longitude],
+          {icon}
+      );
+    });
+
+    leaflet.layerGroup(pins).addTo(mapRef.current);
+  }, [currentCity, offers, activeCard]);
 
   return <section id="map" className={`${className} map`} ref={mapRef}></section>;
 };
 
 Map.propTypes = {
   className: PropTypes.string,
-  offers: offersPropTypes
+  currentCity: PropTypes.string.isRequired,
+  offers: offersPropTypes,
+  activeCard: offerPropTypes
 };
 
 const mapStateToProps = (state) => ({
+  currentCity: state.city,
+  activeCard: state.activeCard,
   offers: state.offers
 });
 

@@ -1,10 +1,28 @@
-export const ActionsType = {
-  CHANGE_CITY: `main/changeCity`
+export const ActionsTypes = {
+  CHANGE_CITY: `main/changeCity`,
+  CHANGE_SORTING: `main/changeSorting`,
+  SET_ACTIVE_CARD: `offer-card/setActiveCard`,
+  UNSET_ACTIVE_CARD: `offer-card/unsetActiveCard`
 };
 
 export const ActionCreator = {
   changeCity: (city) => ({
-    type: ActionsType.CHANGE_CITY,
+    type: ActionsTypes.CHANGE_CITY,
     payload: city
+  }),
+
+  changeSorting: (sortingType) => ({
+    type: ActionsTypes.CHANGE_SORTING,
+    payload: sortingType
+  }),
+
+  setActiveCard: (card) => ({
+    type: ActionsTypes.SET_ACTIVE_CARD,
+    payload: card
+  }),
+
+  unsetActiveCard: () => ({
+    type: ActionsTypes.SET_ACTIVE_CARD,
+    payload: null
   })
 };
