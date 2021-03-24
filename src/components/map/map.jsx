@@ -1,28 +1,27 @@
 import React, {useEffect, useRef} from 'react';
-import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import offersPropTypes from '../offers-list/offers-list.prop';
+import offerPropTypes from '../offer/offer.prop';
+import {CitiesCoords} from '../../const';
 
 import '../../../node_modules/leaflet/dist/leaflet.css';
-import offerPropTypes from '../offer/offer.prop';
 
 const Map = (props) => {
   const {className, offers, currentCity, activeCard} = props;
-  const city = [52.38333, 4.9];
+  const zoom = 12;
   const mapRef = useRef();
 
   useEffect(() => {
-    const zoom = 12;
-
     mapRef.current = leaflet.map(`map`, {
-      center: city,
+      center: CitiesCoords[currentCity],
       zoom,
       zoomControl: false,
       marker: true
     });
 
-    mapRef.current.setView(city, zoom);
+    mapRef.current.setView(CitiesCoords[currentCity], zoom);
 
     leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {

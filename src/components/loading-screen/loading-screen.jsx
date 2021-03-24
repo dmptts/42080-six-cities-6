@@ -2,7 +2,12 @@ import React from 'react';
 
 const LoadingScreen = () => {
   return (
-    <p>Loading ...</p>
+    <p style={{
+      width: `100%`,
+      marginTop: `50px`,
+      fontSize: `32px`,
+      textAlign: `center`
+    }}>Loading ...</p>
   );
 };
 
