@@ -14,3 +14,19 @@ export const sortOffers = (offers, sortingType) => {
       return offers;
   }
 };
+
+export const adaptToClient = (offer) => {
+  return {
+    ...offer,
+    city: offer.city.name,
+    previewImage: offer.preview_image,
+    maxAdults: offer.max_adults,
+    isFavorite: offer.is_favorite,
+    isPremium: offer.is_premium,
+    host: {
+      ...offer.host,
+      isPro: offer.host.is_pro,
+      avatarUrl: offer.host.avatar_url
+    }
+  };
+};
