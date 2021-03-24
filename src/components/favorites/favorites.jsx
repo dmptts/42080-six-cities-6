@@ -1,9 +1,12 @@
 import React from 'react';
-import {Cities} from '../../const';
 import {useHistory} from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import LoadingScreen from '../loading-screen/loading-screen';
+import {Cities} from '../../const';
 import offersPropTypes from '../offers-list/offers-list.prop';
 
-const Favorites = ({offers}) => {
+const Favorites = ({isOffersLoaded, offers}) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
   const favoritesCities = favoriteOffers.map((offer) => offer.city);
   const favoritesCitiesInOrder = Cities.filter((city) => favoritesCities.includes(city)); // Позволяет сохранить последовательность городов в соответсвие с главной страницей
@@ -39,7 +42,7 @@ const Favorites = ({offers}) => {
       </header>
 
       <main className="page__main page__main--favorites">
-        <div className="page__favorites-container container">
+        {isOffersLoaded ? <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
@@ -95,7 +98,7 @@ const Favorites = ({offers}) => {
               }
             </ul>
           </section>
-        </div>
+        </div> : <LoadingScreen />}
       </main>
 
       <footer className="footer container">
@@ -110,6 +113,14 @@ const Favorites = ({offers}) => {
   );
 };
 
-Favorites.propTypes = {offers: offersPropTypes};
+Favorites.propTypes = {
+  isOffersLoaded: PropTypes.bool.isRequired,
+  offers: offersPropTypes
+};
 
-export default Favorites;
+const mapStateToProps = (state) => ({
+  isOffersLoaded: state.isOffersLoaded
+});
+
+export {Favorites};
+export default connect(mapStateToProps, null)(Favorites);
