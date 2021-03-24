@@ -1,16 +1,17 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import LoadingScreen from '../loading-screen/loading-screen';
 import CitiesList from '../cities-list/cities-list';
 import Sorting from '../sorting/sorting';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
-import {useHistory} from 'react-router-dom';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import citiesPropTypes from '../cities-list/cities-list.prop';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 
 const Main = (props) => {
-  const {offers, cities, currentCity} = props;
+  const {isOffersLoaded, offers, cities, currentCity} = props;
 
   const history = useHistory();
 
@@ -48,15 +49,17 @@ const Main = (props) => {
         </div>
         <div className="cities">
           <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offers.filter((offer) => offer.city === currentCity).length} places to stay in Amsterdam</b>
-              <Sorting />
-              <OffersList listClasses={`tabs__content cities__places-list`} cardClasses={`cities__place-card`} />
-            </section>
-            <div className="cities__right-section">
-              <Map className={`cities__map`} />
-            </div>
+            {isOffersLoaded ? <React.Fragment>
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offers.filter((offer) => offer.city === currentCity).length} places to stay in Amsterdam</b>
+                <Sorting />
+                <OffersList listClasses={`tabs__content cities__places-list`} cardClasses={`cities__place-card`} />
+              </section>
+              <div className="cities__right-section">
+                <Map className={`cities__map`} />
+              </div>
+            </React.Fragment> : <LoadingScreen />}
           </div>
         </div>
       </main>
@@ -68,11 +71,13 @@ Main.propTypes = {
   offers: offersPropTypes,
   cities: citiesPropTypes,
   currentCity: PropTypes.string.isRequired,
+  isOffersLoaded: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = (state) => ({
   currentCity: state.city,
-  offers: state.offers
+  offers: state.offers,
+  isOffersLoaded: state.isOffersLoaded
 });
 
 export default connect(mapStateToProps, null)(Main);

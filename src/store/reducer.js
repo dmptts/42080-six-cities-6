@@ -5,7 +5,8 @@ const initialState = {
   city: DEFAULT_CITY,
   sortingType: SortingTypes.POPULARITY_DESCENDING,
   activeCard: null,
-  offers: []
+  offers: [],
+  isOffersLoaded: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,7 +34,8 @@ const reducer = (state = initialState, action) => {
     case ActionsTypes.LOAD_OFFERS:
       return {
         ...state,
-        offers: action.payload
+        offers: action.payload,
+        isOffersLoaded: true
       };
     default:
       return state;
