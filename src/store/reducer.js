@@ -1,4 +1,3 @@
-import offers from '../mock/offers';
 import {ActionsTypes} from './actions';
 import {DEFAULT_CITY, SortingTypes} from '../const';
 
@@ -6,7 +5,8 @@ const initialState = {
   city: DEFAULT_CITY,
   sortingType: SortingTypes.POPULARITY_DESCENDING,
   activeCard: null,
-  offers
+  offers: [],
+  isOffersLoaded: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -30,6 +30,12 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         activeCard: action.payload
+      };
+    case ActionsTypes.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: action.payload,
+        isOffersLoaded: true
       };
     default:
       return state;

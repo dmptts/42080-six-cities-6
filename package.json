@@ -28,6 +28,7 @@
     "node": ">=12.0.0"
   },
   "dependencies": {
+    "axios": "0.21",
     "dayjs": "1.10",
     "leaflet": "1.7",
     "prop-types": "15.7",
@@ -36,6 +37,7 @@
     "react-redux": "7.2",
     "react-router-dom": "5.2",
     "redux": "4.0",
-    "redux-devtools-extension": "2.13"
+    "redux-devtools-extension": "2.13",
+    "redux-thunk": "2.3"
   }
 }
