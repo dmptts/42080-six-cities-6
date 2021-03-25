@@ -10,3 +10,8 @@ export const checkAuthStatus = () => (dispatch, _getState, api) => {
   api.get(`/login`)
     .then((status) => dispatch(ActionCreator.checkAuthStatus(status)));
 };
+
+export const login = ({email, password}) => (dispatch, _getState, api) => {
+  api.post(`/login`, {email, password})
+    .then(() => dispatch(ActionCreator.login()));
+};

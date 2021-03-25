@@ -43,6 +43,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         authStatus: state.payload
       };
+    case ActionsTypes.LOGIN:
+      return {
+        ...state,
+        authStatus: true
+      };
     default:
       return state;
   }

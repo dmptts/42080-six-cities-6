@@ -4,7 +4,8 @@ export const ActionsTypes = {
   SET_ACTIVE_CARD: `offer-card/setActiveCard`,
   UNSET_ACTIVE_CARD: `offer-card/unsetActiveCard`,
   LOAD_OFFERS: `data/loadOffers`,
-  CHECK_AUTH_STATUS: `user/checkAuthStatus`
+  CHECK_AUTH_STATUS: `user/checkAuthStatus`,
+  LOGIN: `user/login`
 };
 
 export const ActionCreator = {
@@ -36,5 +37,9 @@ export const ActionCreator = {
   checkAuthStatus: (status) => ({
     type: ActionsTypes.CHECK_AUTH_STATUS,
     payload: status
+  }),
+
+  login: () => ({
+    type: ActionsTypes.LOGIN
   })
 };
