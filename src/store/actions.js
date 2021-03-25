@@ -3,7 +3,8 @@ export const ActionsTypes = {
   CHANGE_SORTING: `main/changeSorting`,
   SET_ACTIVE_CARD: `offer-card/setActiveCard`,
   UNSET_ACTIVE_CARD: `offer-card/unsetActiveCard`,
-  LOAD_OFFERS: `data/loadOffers`
+  LOAD_OFFERS: `data/loadOffers`,
+  CHECK_AUTH_STATUS: `user/checkAuthStatus`
 };
 
 export const ActionCreator = {
@@ -30,5 +31,10 @@ export const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionsTypes.LOAD_OFFERS,
     payload: offers,
+  }),
+
+  checkAuthStatus: (status) => ({
+    type: ActionsTypes.CHECK_AUTH_STATUS,
+    payload: status
   })
 };

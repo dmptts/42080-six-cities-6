@@ -9,7 +9,7 @@ import {createAPI} from './store/api';
 import App from './components/app/app';
 import offers from './mock/offers';
 import reviews from './mock/reviews';
-import {fetchOffers} from './store/api-actions';
+import {checkAuthStatus, fetchOffers} from './store/api-actions';
 
 const api = createAPI();
 
@@ -20,6 +20,7 @@ const store = createStore(
     )
 );
 
+store.dispatch(checkAuthStatus());
 store.dispatch(fetchOffers());
 
 ReactDOM.render(

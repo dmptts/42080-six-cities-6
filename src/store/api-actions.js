@@ -5,3 +5,8 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
   api.get(`/hotels`)
     .then(({data}) => dispatch(ActionCreator.loadOffers(data.map((offer) => adaptToClient(offer)))));
 };
+
+export const checkAuthStatus = () => (dispatch, _getState, api) => {
+  api.get(`/login`)
+    .then((status) => dispatch(ActionCreator.checkAuthStatus(status)));
+};
