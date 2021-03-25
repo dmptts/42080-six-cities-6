@@ -8,11 +8,11 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
 
 export const checkAuthStatus = () => (dispatch, _getState, api) => {
   api.get(`/login`)
-    .then(() => dispatch(ActionCreator.checkAuthStatus(true)))
+    .then(({data}) => dispatch(ActionCreator.checkAuthStatus(data)))
     .catch(() => {});
 };
 
 export const login = ({email, password}) => (dispatch, _getState, api) => {
   api.post(`/login`, {email, password})
-    .then(() => dispatch(ActionCreator.login()));
+    .then(({data}) => dispatch(ActionCreator.login(data)));
 };

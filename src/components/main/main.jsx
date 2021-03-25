@@ -11,7 +11,7 @@ import offersPropTypes from '../offers-list/offers-list.prop';
 import citiesPropTypes from '../cities-list/cities-list.prop';
 
 const Main = (props) => {
-  const {isOffersLoaded, offers, cities, currentCity} = props;
+  const {authStatus, isOffersLoaded, offers, cities, currentCity, user} = props;
 
   const history = useHistory();
 
@@ -30,8 +30,12 @@ const Main = (props) => {
                 <li className="header__nav-item user">
                   <a className="header__nav-link header__nav-link--profile" onClick={() => history.push(`/favorites`)}>
                     <div className="header__avatar-wrapper user__avatar-wrapper">
+                      {authStatus && <img className="header__ avater user__avatar" src={user.avatar_url} width="20" height="20" />}
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    {authStatus
+                      ? <span className="header__user-name user__name">{user.email}</span>
+                      : <span className="header__login">Sign in</span>
+                    }
                   </a>
                 </li>
               </ul>
@@ -71,13 +75,17 @@ Main.propTypes = {
   offers: offersPropTypes,
   cities: citiesPropTypes,
   currentCity: PropTypes.string.isRequired,
-  isOffersLoaded: PropTypes.bool.isRequired
+  isOffersLoaded: PropTypes.bool.isRequired,
+  authStatus: PropTypes.bool.isRequired,
+  user: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
   currentCity: state.city,
   offers: state.offers,
-  isOffersLoaded: state.isOffersLoaded
+  isOffersLoaded: state.isOffersLoaded,
+  authStatus: state.authStatus,
+  user: state.user
 });
 
 export default connect(mapStateToProps, null)(Main);

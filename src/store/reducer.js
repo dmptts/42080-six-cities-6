@@ -7,7 +7,8 @@ const initialState = {
   activeCard: null,
   offers: [],
   isOffersLoaded: false,
-  authStatus: false
+  authStatus: false,
+  user: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -41,12 +42,14 @@ const reducer = (state = initialState, action) => {
     case ActionsTypes.CHECK_AUTH_STATUS:
       return {
         ...state,
-        authStatus: state.payload
+        authStatus: true,
+        user: action.payload
       };
     case ActionsTypes.LOGIN:
       return {
         ...state,
-        authStatus: true
+        authStatus: true,
+        user: action.payload
       };
     default:
       return state;

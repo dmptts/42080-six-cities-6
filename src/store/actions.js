@@ -34,12 +34,13 @@ export const ActionCreator = {
     payload: offers,
   }),
 
-  checkAuthStatus: (status) => ({
+  checkAuthStatus: (response) => ({
     type: ActionsTypes.CHECK_AUTH_STATUS,
-    payload: status
+    payload: response
   }),
 
-  login: () => ({
-    type: ActionsTypes.LOGIN
+  login: (response) => ({
+    type: ActionsTypes.LOGIN,
+    payload: response
   })
 };
