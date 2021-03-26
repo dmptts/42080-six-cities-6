@@ -1,8 +1,11 @@
 import React from 'react';
+import {useHistory} from 'react-router';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 const Navigation = ({authStatus, user}) => {
+  const history = useHistory();
+
   return <nav className="header__nav">
     <ul className="header__nav-list">
       <li className="header__nav-item user">

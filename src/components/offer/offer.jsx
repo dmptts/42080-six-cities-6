@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
@@ -8,17 +8,22 @@ import ReviewsList from '../reviews-list/reviews-list';
 import Map from '../map/map';
 import OffersList from '../offers-list/offers-list';
 import LoadingScreen from '../loading-screen/loading-screen';
-import offersPropTypes from '../offers-list/offers-list.prop';
 import reviewsPropTypes from '../reviews-list/reviews-list.prop';
+import offerPropTypes from './offer.prop';
+import {fetchOfferById} from '../../store/api-actions';
 
-const Offer = ({path, isOffersLoaded, offers, reviews}) => {
+const Offer = ({path, isOfferLoaded, offer, reviews, onLoadData}) => {
   const offerID = Number(path.slice(7));
-  const currentOffer = offers.find((offer) => offer.id === offerID);
 
   const history = useHistory();
 
-  // Временное решение до связки данных о предложении со страницей
-  const offersNearby = offers.slice(0, 3);
+  if (!isOfferLoaded) {
+    onLoadData(offerID);
+  }
+
+  useEffect(() => {
+    onLoadData(offerID);
+  }, [path]);
 
   return (
     <React.Fragment>
@@ -39,11 +44,11 @@ const Offer = ({path, isOffersLoaded, offers, reviews}) => {
       </header>
 
       <main className="page__main page__main--property">
-        {isOffersLoaded ? <React.Fragment>
+        {isOfferLoaded ? <React.Fragment>
           <section className="property">
             <div className="property__gallery-container container">
               <div className="property__gallery">
-                {currentOffer.images.slice(0, 6).map((image, index) => {
+                {offer.images.slice(0, 6).map((image, index) => {
                   return <div
                     key={index}
                     className="property__image-wrapper"
@@ -55,12 +60,12 @@ const Offer = ({path, isOffersLoaded, offers, reviews}) => {
             </div>
             <div className="property__container container">
               <div className="property__wrapper">
-                {currentOffer.isPremium && <div className="property__mark">
+                {offer.isPremium && <div className="property__mark">
                   <span>Premium</span>
                 </div>}
                 <div className="property__name-wrapper">
                   <h1 className="property__name">
-                    {currentOffer.title}
+                    {offer.title}
                   </h1>
                   <button className="property__bookmark-button button" type="button">
                     <svg className="property__bookmark-icon" width="31" height="33">
@@ -71,30 +76,30 @@ const Offer = ({path, isOffersLoaded, offers, reviews}) => {
                 </div>
                 <div className="property__rating rating">
                   <div className="property__stars rating__stars">
-                    <span style={{width: Math.round(currentOffer.rating) * 20 + `%`}}></span>
+                    <span style={{width: Math.round(offer.rating) * 20 + `%`}}></span>
                     <span className="visually-hidden">Rating</span>
                   </div>
-                  <span className="property__rating-value rating__value">{currentOffer.rating}</span>
+                  <span className="property__rating-value rating__value">{offer.rating}</span>
                 </div>
                 <ul className="property__features">
                   <li className="property__feature property__feature--entire">
-                    {currentOffer.type}
+                    {offer.type}
                   </li>
                   <li className="property__feature property__feature--bedrooms">
-                    {currentOffer.bedrooms} Bedrooms
+                    {offer.bedrooms} Bedrooms
                   </li>
                   <li className="property__feature property__feature--adults">
-                    Max {currentOffer.maxAdults} adults
+                    Max {offer.maxAdults} adults
                   </li>
                 </ul>
                 <div className="property__price">
-                  <b className="property__price-value">&euro;{currentOffer.price}</b>
+                  <b className="property__price-value">&euro;{offer.price}</b>
                   <span className="property__price-text">&nbsp;night</span>
                 </div>
                 <div className="property__inside">
                   <h2 className="property__inside-title">What&apos;s inside</h2>
                   <ul className="property__inside-list">
-                    {currentOffer.goods.map((good, index) => {
+                    {offer.goods.map((good, index) => {
                       return <li
                         key={index}
                         className="property__inside-item"
@@ -108,17 +113,17 @@ const Offer = ({path, isOffersLoaded, offers, reviews}) => {
                   <h2 className="property__host-title">Meet the host</h2>
                   <div className="property__host-user user">
                     <div
-                      className={`property__avatar-wrapper user__avatar-wrapper${currentOffer.host.isPro && ` property__avatar-wrapper--pro`}`}
+                      className={`property__avatar-wrapper user__avatar-wrapper${offer.host.isPro && ` property__avatar-wrapper--pro`}`}
                     >
-                      <img className="property__avatar user__avatar" src={currentOffer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
+                      <img className="property__avatar user__avatar" src={offer.host.avatarUrl} width="74" height="74" alt="Host avatar" />
                     </div>
                     <span className="property__user-name">
-                      {currentOffer.host.name}
+                      {offer.host.name}
                     </span>
                   </div>
                   <div className="property__description">
                     <p className="property__text">
-                      {currentOffer.description}
+                      {offer.description}
                     </p>
                   </div>
                 </div>
@@ -129,13 +134,13 @@ const Offer = ({path, isOffersLoaded, offers, reviews}) => {
                 </section>
               </div>
             </div>
-            <Map className={`property__map`} offers={offersNearby} />
+            {/* <Map className={`property__map`} offers={offersNearby} /> */}
           </section>
           <div className="container">
-            <section className="near-places places">
+            {/* <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
               <OffersList listClasses={`near-places__list`} cardClasses={`near-places__card`} offers={offersNearby} />
-            </section>
+            </section> */}
           </div>
         </React.Fragment> : <LoadingScreen />}
       </main>
@@ -145,15 +150,22 @@ const Offer = ({path, isOffersLoaded, offers, reviews}) => {
 
 Offer.propTypes = {
   path: PropTypes.string.isRequired,
-  isOffersLoaded: PropTypes.bool.isRequired,
-  offers: offersPropTypes,
-  reviews: reviewsPropTypes
+  isOfferLoaded: PropTypes.bool.isRequired,
+  offer: offerPropTypes,
+  reviews: reviewsPropTypes,
+  onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  isOffersLoaded: state.isOffersLoaded,
-  offers: state.offers
+  isOfferLoaded: state.isOfferLoaded,
+  offer: state.offer
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData(id) {
+    dispatch(fetchOfferById(id));
+  }
 });
 
 export {Offer};
-export default connect(mapStateToProps, null)(Offer);
+export default connect(mapStateToProps, mapDispatchToProps)(Offer);

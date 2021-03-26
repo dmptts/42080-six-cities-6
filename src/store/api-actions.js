@@ -6,6 +6,11 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
     .then(({data}) => dispatch(ActionCreator.loadOffers(data.map((offer) => adaptToClient(offer)))));
 };
 
+export const fetchOfferById = (id) => (dispatch, _getState, api) => {
+  api.get(`hotels/${id}`)
+    .then(({data}) => dispatch(ActionCreator.loadOffer(adaptToClient(data))));
+};
+
 export const checkAuthStatus = () => (dispatch, _getState, api) => {
   api.get(`/login`)
     .then(({data}) => dispatch(ActionCreator.checkAuthStatus(data)))

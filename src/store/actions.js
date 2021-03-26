@@ -4,6 +4,7 @@ export const ActionsTypes = {
   SET_ACTIVE_CARD: `offer-card/setActiveCard`,
   UNSET_ACTIVE_CARD: `offer-card/unsetActiveCard`,
   LOAD_OFFERS: `data/loadOffers`,
+  LOAD_OFFER_BY_ID: `data/loadOfferByID`,
   CHECK_AUTH_STATUS: `user/checkAuthStatus`,
   LOGIN: `user/login`
 };
@@ -32,6 +33,11 @@ export const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionsTypes.LOAD_OFFERS,
     payload: offers,
+  }),
+
+  loadOffer: (offer) => ({
+    type: ActionsTypes.LOAD_OFFER_BY_ID,
+    payload: offer
   }),
 
   checkAuthStatus: (response) => ({

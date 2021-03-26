@@ -6,7 +6,9 @@ const initialState = {
   sortingType: SortingTypes.POPULARITY_DESCENDING,
   activeCard: null,
   offers: [],
+  offer: null,
   isOffersLoaded: false,
+  isOfferLoaded: false,
   authStatus: false,
   user: null
 };
@@ -38,6 +40,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: action.payload,
         isOffersLoaded: true
+      };
+    case ActionsTypes.LOAD_OFFER_BY_ID:
+      return {
+        ...state,
+        offer: action.payload,
+        isOfferLoaded: true
       };
     case ActionsTypes.CHECK_AUTH_STATUS:
       return {
