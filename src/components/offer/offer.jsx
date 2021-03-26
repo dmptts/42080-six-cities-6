@@ -10,7 +10,10 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 
-const Offer = ({isOffersLoaded, offers, reviews}) => {
+const Offer = ({path, isOffersLoaded, offers, reviews}) => {
+  const offerID = Number(path.slice(7));
+  const currentOffer = offers.find((offer) => offer.id === offerID);
+
   const history = useHistory();
 
   // Временное решение до связки данных о предложении со страницей
@@ -185,13 +188,15 @@ const Offer = ({isOffersLoaded, offers, reviews}) => {
 };
 
 Offer.propTypes = {
-  isOffersLoaded: PropTypes.bool.isRewuired,
+  path: PropTypes.string.isRequired,
+  isOffersLoaded: PropTypes.bool.isRequired,
   offers: offersPropTypes,
   reviews: reviewsPropTypes
 };
 
 const mapStateToProps = (state) => ({
-  isOffersLoaded: state.isOffersLoaded
+  isOffersLoaded: state.isOffersLoaded,
+  offers: state.offers
 });
 
 export {Offer};

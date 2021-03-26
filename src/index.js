@@ -7,7 +7,6 @@ import thunk from 'redux-thunk';
 import {reducer} from './store/reducer';
 import {createAPI} from './store/api';
 import App from './components/app/app';
-import offers from './mock/offers';
 import reviews from './mock/reviews';
 import {checkAuthStatus, fetchOffers} from './store/api-actions';
 
@@ -26,7 +25,6 @@ store.dispatch(fetchOffers());
 ReactDOM.render(
     <Provider store={store}>
       <App
-        offers={offers}
         reviews={reviews}
       />
     </Provider>,

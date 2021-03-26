@@ -10,9 +10,7 @@ import offersPropTypes from '../offers-list/offers-list.prop';
 import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import {Cities} from '../../const';
 
-const App = (props) => {
-  const {offers, reviews} = props;
-
+const App = ({reviews}) => {
   return (
     <BrowserRouter>
       <Switch>
@@ -28,8 +26,11 @@ const App = (props) => {
           render={() => <Favorites />}
         >
         </PrivateRoute>
-        <Route path="/offer/:id?" exact>
-          <Offer offers={offers} reviews={reviews} />
+        <Route
+          path="/offer/:id"
+          exact
+          render={(props) => <Offer path={props.location.pathname} reviews={reviews} />}
+        >
         </Route>
         <Route>
           <NotFound />
