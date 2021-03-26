@@ -4,6 +4,7 @@ import Main from '../main/main';
 import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import Offer from '../offer/offer';
+import PrivateRoute from '../private-route/private-route';
 import NotFound from '../not-found/not-found';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import reviewsPropTypes from '../reviews-list/reviews-list.prop';
@@ -21,9 +22,12 @@ const App = (props) => {
         <Route path="/login" exact>
           <Login />
         </Route>
-        <Route path="/favorites" exact>
-          <Favorites offers={offers} />
-        </Route>
+        <PrivateRoute
+          exact
+          path="/favorites"
+          render={() => <Favorites />}
+        >
+        </PrivateRoute>
         <Route path="/offer/:id?" exact>
           <Offer offers={offers} reviews={reviews} />
         </Route>
