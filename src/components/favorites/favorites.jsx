@@ -119,7 +119,8 @@ Favorites.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  isOffersLoaded: state.isOffersLoaded
+  isOffersLoaded: state.isOffersLoaded,
+  offers: state.offers
 });
 
 export {Favorites};
