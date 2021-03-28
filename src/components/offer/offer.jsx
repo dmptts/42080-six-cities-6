@@ -1,5 +1,4 @@
 import React, {useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Navigation from '../navigation/navigation';
@@ -15,8 +14,6 @@ import {fetchOfferById} from '../../store/api-actions';
 const Offer = ({path, isOfferLoaded, offer, reviews, onLoadData}) => {
   const offerID = Number(path.slice(7));
 
-  const history = useHistory();
-
   if (!isOfferLoaded) {
     onLoadData(offerID);
   }
@@ -31,10 +28,7 @@ const Offer = ({path, isOfferLoaded, offer, reviews, onLoadData}) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a
-                className="header__logo-link"
-                onClick={() => history.push(`/`)}
-              >
+              <a href="/" className="header__logo-link">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>

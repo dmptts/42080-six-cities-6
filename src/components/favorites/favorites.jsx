@@ -1,5 +1,5 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingScreen from '../loading-screen/loading-screen';
@@ -11,8 +11,6 @@ const Favorites = ({isOffersLoaded, offers}) => {
   const favoritesCities = favoriteOffers.map((offer) => offer.city);
   const favoritesCitiesInOrder = Cities.filter((city) => favoritesCities.includes(city)); // Позволяет сохранить последовательность городов в соответсвие с главной страницей
 
-  const history = useHistory();
-
   return (
     <React.Fragment>
       <header className="header">
@@ -21,7 +19,7 @@ const Favorites = ({isOffersLoaded, offers}) => {
             <div className="header__left">
               <a
                 className="header__logo-link"
-                onClick={() => history.push(`/`)}
+                href="/"
               >
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>

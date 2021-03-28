@@ -6,7 +6,9 @@ export const ActionsTypes = {
   LOAD_OFFERS: `data/loadOffers`,
   LOAD_OFFER_BY_ID: `data/loadOfferByID`,
   CHECK_AUTH_STATUS: `user/checkAuthStatus`,
-  LOGIN: `user/login`
+  GET_USER_DATA: `user/getUserData`,
+  LOGIN: `user/login`,
+  REDIRECT_TO_ROUTE: `route/redirectToRoute`
 };
 
 export const ActionCreator = {
@@ -45,8 +47,18 @@ export const ActionCreator = {
     payload: response
   }),
 
+  getUserData: (userData) => ({
+    type: ActionsTypes.GET_USER_DATA,
+    payload: userData
+  }),
+
   login: (response) => ({
     type: ActionsTypes.LOGIN,
     payload: response
+  }),
+
+  redirect: (url) => ({
+    type: ActionsTypes.REDIRECT_TO_ROUTE,
+    payload: url
   })
 };

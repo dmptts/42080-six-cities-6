@@ -1,15 +1,12 @@
 import React from 'react';
-import {useHistory} from 'react-router';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 const Navigation = ({authStatus, user}) => {
-  const history = useHistory();
-
   return <nav className="header__nav">
     <ul className="header__nav-list">
       <li className="header__nav-item user">
-        <a className="header__nav-link header__nav-link--profile" onClick={() => history.push(`/favorites`)}>
+        <a href="/favorites" className="header__nav-link header__nav-link--profile">
           <div className="header__avatar-wrapper user__avatar-wrapper">
             {authStatus && <img className="header__ avater user__avatar" src={user.avatar_url} width="20" height="20" />}
           </div>

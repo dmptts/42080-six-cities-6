@@ -1,5 +1,6 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {Router, Switch, Route} from 'react-router-dom';
+import browserHistory from '../../browser-history';
 import Main from '../main/main';
 import Login from '../login/login';
 import Favorites from '../favorites/favorites';
@@ -12,7 +13,7 @@ import {Cities} from '../../const';
 
 const App = ({reviews}) => {
   return (
-    <BrowserRouter>
+    <Router history={browserHistory}>
       <Switch>
         <Route path="/" exact>
           <Main cities={Cities}/>;
@@ -36,7 +37,7 @@ const App = ({reviews}) => {
           <NotFound />
         </Route>
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 

@@ -1,5 +1,5 @@
-import {ActionCreator} from "./actions";
-import {adaptToClient} from "../utils";
+import {ActionCreator} from './actions';
+import {adaptToClient} from '../utils';
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
   api.get(`/hotels`)
@@ -8,7 +8,12 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
 
 export const fetchOfferById = (id) => (dispatch, _getState, api) => {
   api.get(`hotels/${id}`)
-    .then(({data}) => dispatch(ActionCreator.loadOffer(adaptToClient(data))));
+    .then(({data}) => dispatch(ActionCreator.loadOffer(adaptToClient(data))))
+    .catch((error) => {
+      if (error.response && error.response.status === 404) {
+        dispatch(ActionCreator.redirect(`/not-found`));
+      }
+    });
 };
 
 export const checkAuthStatus = () => (dispatch, _getState, api) => {
@@ -19,5 +24,6 @@ export const checkAuthStatus = () => (dispatch, _getState, api) => {
 
 export const login = ({email, password}) => (dispatch, _getState, api) => {
   api.post(`/login`, {email, password})
-    .then(({data}) => dispatch(ActionCreator.login(data)));
+    .then(({data}) => dispatch(ActionCreator.login(data)))
+    .then(() => dispatch(ActionCreator.redirect(`/`)));
 };

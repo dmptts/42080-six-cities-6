@@ -1,12 +1,9 @@
 import React, {useRef} from 'react';
 import {connect} from 'react-redux';
-import {useHistory} from 'react-router';
 import {login} from '../../store/api-actions';
 import PropTypes from 'prop-types';
 
 const Login = ({onSubmit}) => {
-  const history = useHistory();
-
   const emailRef = useRef();
   const passwordRef = useRef();
 
@@ -17,8 +14,6 @@ const Login = ({onSubmit}) => {
       email: emailRef.current.value,
       password: passwordRef.current.value
     });
-
-    history.push(`/`);
   };
 
   return (
