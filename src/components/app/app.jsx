@@ -11,7 +11,7 @@ import offersPropTypes from '../offers-list/offers-list.prop';
 import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import {Cities} from '../../const';
 
-const App = ({reviews}) => {
+const App = () => {
   return (
     <Router history={browserHistory}>
       <Switch>

@@ -11,6 +11,7 @@ const initialState = {
   nearbyOffers: [],
   isOffersLoaded: false,
   isOfferLoaded: false,
+  isReviewsLoaded: false,
   authStatus: false,
   user: {}
 };
@@ -46,7 +47,8 @@ const reducer = (state = initialState, action) => {
     case ActionsTypes.LOAD_REVIEWS:
       return {
         ...state,
-        reviews: action.payload
+        reviews: action.payload,
+        isReviewsLoaded: true
       };
     case ActionsTypes.LOAD_OFFER_BY_ID:
       return {

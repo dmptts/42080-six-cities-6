@@ -10,7 +10,7 @@ import OffersList from '../offers-list/offers-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import offerPropTypes from './offer.prop';
-import {fetchNearbyOffers, fetchOfferById, fetchReviews} from '../../store/api-actions';
+import {fetchNearbyOffers, fetchOfferById} from '../../store/api-actions';
 import offersPropTypes from '../offers-list/offers-list.prop';
 
 const Offer = ({path, isOfferLoaded, offer, nearbyOffers, reviews, onLoadData}) => {
@@ -125,8 +125,8 @@ const Offer = ({path, isOfferLoaded, offer, nearbyOffers, reviews, onLoadData}) 
                 </div>
                 <section className="property__reviews reviews">
                   <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
-                  <ReviewsList reviews={reviews} />
-                  <ReviewForm />
+                  <ReviewsList offerID={offerID} />
+                  <ReviewForm offerID={offerID} />
                 </section>
               </div>
             </div>
@@ -163,7 +163,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(id) {
     dispatch(fetchOfferById(id));
-    dispatch(fetchReviews(id));
     dispatch(fetchNearbyOffers(id));
   }
 });

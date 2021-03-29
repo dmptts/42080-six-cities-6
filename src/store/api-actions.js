@@ -62,6 +62,6 @@ export const login = ({email, password}) => (dispatch, _getState, api) => {
     .then(() => dispatch(ActionCreator.redirect(`/`)));
 };
 
-// export const postReview = (text, id) => (dispatch, _getState, api) => {
-//   api.post(`/comments/${id}`);
-// };
+export const postReview = ({comment, rating}, id) => (dispatch, _getState, api) => {
+  api.post(`/comments/${id}`, {comment, rating});
+};
