@@ -6,6 +6,7 @@ export const ActionsTypes = {
   LOAD_OFFERS: `data/loadOffers`,
   LOAD_OFFER_BY_ID: `data/loadOfferByID`,
   LOAD_REVIEWS: `data/loadReviews`,
+  LOAD_NEARBY_OFFERS: `data/loadNearbyOffers`,
   CHECK_AUTH_STATUS: `user/checkAuthStatus`,
   GET_USER_DATA: `user/getUserData`,
   LOGIN: `user/login`,
@@ -46,6 +47,11 @@ export const ActionCreator = {
   loadReviews: (reviews) => ({
     type: ActionsTypes.LOAD_REVIEWS,
     payload: reviews
+  }),
+
+  loadNearbyOffers: (offers) => ({
+    type: ActionsTypes.LOAD_NEARBY_OFFERS,
+    payload: offers
   }),
 
   checkAuthStatus: (response) => ({

@@ -42,10 +42,10 @@ const Main = (props) => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offers.filter((offer) => offer.city === currentCity).length} places to stay in Amsterdam</b>
                 <Sorting />
-                <OffersList listClasses={`tabs__content cities__places-list`} cardClasses={`cities__place-card`} />
+                <OffersList listClasses={`tabs__content cities__places-list`} cardClasses={`cities__place-card`} offers={offers} />
               </section>
               <div className="cities__right-section">
-                <Map className={`cities__map`} />
+                <Map className={`cities__map`} offers={offers} />
               </div>
             </React.Fragment> : <LoadingScreen />}
           </div>

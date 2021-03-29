@@ -8,6 +8,7 @@ const initialState = {
   offers: [],
   offer: {},
   reviews: [],
+  nearbyOffers: [],
   isOffersLoaded: false,
   isOfferLoaded: false,
   authStatus: false,
@@ -52,6 +53,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         offer: action.payload,
         isOfferLoaded: true
+      };
+    case ActionsTypes.LOAD_NEARBY_OFFERS:
+      return {
+        ...state,
+        nearbyOffers: action.payload
       };
     case ActionsTypes.CHECK_AUTH_STATUS:
       return {

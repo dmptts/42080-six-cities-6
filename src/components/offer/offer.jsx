@@ -10,9 +10,10 @@ import OffersList from '../offers-list/offers-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import offerPropTypes from './offer.prop';
-import {fetchOfferById, fetchReviews} from '../../store/api-actions';
+import {fetchNearbyOffers, fetchOfferById, fetchReviews} from '../../store/api-actions';
+import offersPropTypes from '../offers-list/offers-list.prop';
 
-const Offer = ({path, isOfferLoaded, offer, reviews, onLoadData}) => {
+const Offer = ({path, isOfferLoaded, offer, nearbyOffers, reviews, onLoadData}) => {
   const offerID = Number(path.slice(7));
 
   if (!isOfferLoaded) {
@@ -129,13 +130,13 @@ const Offer = ({path, isOfferLoaded, offer, reviews, onLoadData}) => {
                 </section>
               </div>
             </div>
-            {/* <Map className={`property__map`} offers={offersNearby} /> */}
+            <Map className={`property__map`} offers={nearbyOffers} />
           </section>
           <div className="container">
-            {/* <section className="near-places places">
+            <section className="near-places places">
               <h2 className="near-places__title">Other places in the neighbourhood</h2>
-              <OffersList listClasses={`near-places__list`} cardClasses={`near-places__card`} offers={offersNearby} />
-            </section> */}
+              <OffersList listClasses={`near-places__list`} cardClasses={`near-places__card`} offers={nearbyOffers} />
+            </section>
           </div>
         </React.Fragment> : <LoadingScreen />}
       </main>
@@ -147,6 +148,7 @@ Offer.propTypes = {
   path: PropTypes.string.isRequired,
   isOfferLoaded: PropTypes.bool.isRequired,
   offer: offerPropTypes,
+  nearbyOffers: offersPropTypes,
   reviews: reviewsPropTypes,
   onLoadData: PropTypes.func.isRequired
 };
@@ -154,6 +156,7 @@ Offer.propTypes = {
 const mapStateToProps = (state) => ({
   isOfferLoaded: state.isOfferLoaded,
   offer: state.offer,
+  nearbyOffers: state.nearbyOffers,
   reviews: state.reviews
 });
 
@@ -161,6 +164,7 @@ const mapDispatchToProps = (dispatch) => ({
   onLoadData(id) {
     dispatch(fetchOfferById(id));
     dispatch(fetchReviews(id));
+    dispatch(fetchNearbyOffers(id));
   }
 });
 

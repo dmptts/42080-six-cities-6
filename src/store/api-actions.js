@@ -35,6 +35,18 @@ export const fetchReviews = (id) => (dispatch, _getState, api) => {
     .catch(() => {});
 };
 
+export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => {
+  api.get(`/hotels/${id}/nearby`)
+    .then(({data}) => {
+      dispatch(
+          ActionCreator.loadNearbyOffers(
+              data.map((offer) => adaptOfferToClient(offer))
+          )
+      );
+    })
+    .catch(() => {});
+};
+
 export const checkAuthStatus = () => (dispatch, _getState, api) => {
   api.get(`/login`)
     .then(({data}) => {
