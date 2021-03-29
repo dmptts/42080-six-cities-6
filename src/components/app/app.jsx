@@ -8,7 +8,6 @@ import Offer from '../offer/offer';
 import PrivateRoute from '../private-route/private-route';
 import NotFound from '../not-found/not-found';
 import offersPropTypes from '../offers-list/offers-list.prop';
-import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import {Cities} from '../../const';
 
 const App = () => {
@@ -27,11 +26,8 @@ const App = () => {
           render={() => <Favorites />}
         >
         </PrivateRoute>
-        <Route
-          path="/offer/:id"
-          exact
-          render={(props) => <Offer path={props.location.pathname} />}
-        >
+        <Route path="/offer/:offerID" exact >
+          <Offer />
         </Route>
         <Route>
           <NotFound />
@@ -42,8 +38,7 @@ const App = () => {
 };
 
 App.propTypes = {
-  offers: offersPropTypes,
-  reviews: reviewsPropTypes
+  offers: offersPropTypes
 };
 
 export default App;

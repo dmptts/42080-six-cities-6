@@ -22,6 +22,7 @@ const ReviewsList = ({offerID, isReviewsLoaded, reviews, onLoadData}) => {
 
 ReviewsList.propTypes = {
   offerID: PropTypes.number.isRequired,
+  isReviewsLoaded: PropTypes.bool.isRequired,
   reviews: reviewsPropTypes,
   onLoadData: PropTypes.func.isRequired
 };

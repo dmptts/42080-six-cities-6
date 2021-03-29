@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Navigation from '../navigation/navigation';
@@ -13,16 +13,17 @@ import offerPropTypes from './offer.prop';
 import {fetchNearbyOffers, fetchOfferById} from '../../store/api-actions';
 import offersPropTypes from '../offers-list/offers-list.prop';
 
-const Offer = ({path, isOfferLoaded, offer, nearbyOffers, reviews, onLoadData}) => {
-  const offerID = Number(path.slice(7));
+const Offer = ({isOfferLoaded, offer, nearbyOffers, reviews, onLoadData}) => {
+  const URLparams = useParams();
+  const offerID = Number(URLparams.offerID);
+
+  useEffect(() => {
+    onLoadData(offerID);
+  }, [offerID]);
 
   if (!isOfferLoaded) {
     onLoadData(offerID);
   }
-
-  useEffect(() => {
-    onLoadData(offerID);
-  }, [path]);
 
   return (
     <React.Fragment>
@@ -145,7 +146,6 @@ const Offer = ({path, isOfferLoaded, offer, nearbyOffers, reviews, onLoadData}) 
 };
 
 Offer.propTypes = {
-  path: PropTypes.string.isRequired,
   isOfferLoaded: PropTypes.bool.isRequired,
   offer: offerPropTypes,
   nearbyOffers: offersPropTypes,
