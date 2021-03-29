@@ -5,6 +5,7 @@ export const ActionsTypes = {
   UNSET_ACTIVE_CARD: `offer-card/unsetActiveCard`,
   LOAD_OFFERS: `data/loadOffers`,
   LOAD_OFFER_BY_ID: `data/loadOfferByID`,
+  LOAD_REVIEWS: `data/loadReviews`,
   CHECK_AUTH_STATUS: `user/checkAuthStatus`,
   GET_USER_DATA: `user/getUserData`,
   LOGIN: `user/login`,
@@ -40,6 +41,11 @@ export const ActionCreator = {
   loadOffer: (offer) => ({
     type: ActionsTypes.LOAD_OFFER_BY_ID,
     payload: offer
+  }),
+
+  loadReviews: (reviews) => ({
+    type: ActionsTypes.LOAD_REVIEWS,
+    payload: reviews
   }),
 
   checkAuthStatus: (response) => ({

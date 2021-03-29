@@ -15,7 +15,7 @@ export const sortOffers = (offers, sortingType) => {
   }
 };
 
-export const adaptToClient = (offer) => {
+export const adaptOfferToClient = (offer) => {
   return {
     ...offer,
     city: offer.city.name,
@@ -27,6 +27,17 @@ export const adaptToClient = (offer) => {
       ...offer.host,
       isPro: offer.host.is_pro,
       avatarUrl: offer.host.avatar_url
+    }
+  };
+};
+
+export const adaptReviewToClient = (review) => {
+  return {
+    ...review,
+    user: {
+      ...review.user,
+      avatarUrl: review.user.avatar_url,
+      isPro: review.user.is_pro
     }
   };
 };

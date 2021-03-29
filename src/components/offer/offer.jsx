@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Navigation from '../navigation/navigation';
@@ -9,7 +10,7 @@ import OffersList from '../offers-list/offers-list';
 import LoadingScreen from '../loading-screen/loading-screen';
 import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import offerPropTypes from './offer.prop';
-import {fetchOfferById} from '../../store/api-actions';
+import {fetchOfferById, fetchReviews} from '../../store/api-actions';
 
 const Offer = ({path, isOfferLoaded, offer, reviews, onLoadData}) => {
   const offerID = Number(path.slice(7));
@@ -28,9 +29,9 @@ const Offer = ({path, isOfferLoaded, offer, reviews, onLoadData}) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a href="/" className="header__logo-link">
+              <Link to={`/`} className="header__logo-link">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
+              </Link>
             </div>
             <Navigation />
           </div>
@@ -152,12 +153,14 @@ Offer.propTypes = {
 
 const mapStateToProps = (state) => ({
   isOfferLoaded: state.isOfferLoaded,
-  offer: state.offer
+  offer: state.offer,
+  reviews: state.reviews
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(id) {
     dispatch(fetchOfferById(id));
+    dispatch(fetchReviews(id));
   }
 });
 

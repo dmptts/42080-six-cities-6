@@ -1,10 +1,11 @@
 import React from 'react';
 import Review from '../review/review';
 import reviewsPropTypes from './reviews-list.prop';
+import {MAX_REVIEWS_RENDERED} from '../../const';
 
 const ReviewsList = ({reviews}) => {
   return <ul className="reviews__list">
-    {reviews.map((review) => <Review key={review.id} review={review} />)}
+    {reviews.slice(-MAX_REVIEWS_RENDERED).map((review) => <Review key={review.id} review={review} />)}
   </ul>;
 };
 

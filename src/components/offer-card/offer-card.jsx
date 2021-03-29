@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offerPropTypes from '../offer/offer.prop';
 import {connect} from 'react-redux';
@@ -18,9 +19,9 @@ const OfferCard = (props) => {
         <span>Premium</span>
       </div> : ``}
       <div className={`${cardClasses}__image-wrapper place-card__image-wrapper`}>
-        <a href={`/offer/${id}`}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -42,7 +43,7 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={`/offer/${id}`}>{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type[0].toUpperCase() + type.slice(1)}</p>
       </div>
