@@ -65,3 +65,14 @@ export const login = ({email, password}) => (dispatch, _getState, api) => {
 export const postReview = ({comment, rating}, id) => (dispatch, _getState, api) => {
   api.post(`/comments/${id}`, {comment, rating});
 };
+
+export const checkAuthStatus = () => (dispatch, _getState, api) => {
+  api.get(`/login`)
+    .then(({data}) => dispatch(ActionCreator.checkAuthStatus(data)))
+    .catch(() => {});
+};
+
+export const login = ({email, password}) => (dispatch, _getState, api) => {
+  api.post(`/login`, {email, password})
+    .then(({data}) => dispatch(ActionCreator.login(data)));
+};
