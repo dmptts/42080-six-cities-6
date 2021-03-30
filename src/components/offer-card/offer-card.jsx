@@ -1,6 +1,6 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import {useHistory} from 'react-router-dom';
 import offerPropTypes from '../offer/offer.prop';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/actions';
@@ -9,22 +9,19 @@ const OfferCard = (props) => {
   const {cardClasses, offer, onCardHover, onCardBlur} = props;
   const {id, title, previewImage, price, isPremium, type, rating} = offer;
 
-  const history = useHistory();
-
   return (
     <article
       className={`${cardClasses} place-card`}
       onMouseEnter={() => onCardHover(offer)}
       onMouseLeave={() => onCardBlur(null)}
-      onClick={() => history.push(`/offer/` + id)}
     >
       {isPremium ? <div className="place-card__mark">
         <span>Premium</span>
       </div> : ``}
       <div className={`${cardClasses}__image-wrapper place-card__image-wrapper`}>
-        <a>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -46,7 +43,7 @@ const OfferCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a>{title}</a>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type[0].toUpperCase() + type.slice(1)}</p>
       </div>

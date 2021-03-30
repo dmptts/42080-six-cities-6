@@ -6,9 +6,14 @@ const initialState = {
   sortingType: SortingTypes.POPULARITY_DESCENDING,
   activeCard: null,
   offers: [],
+  offer: {},
+  reviews: [],
+  nearbyOffers: [],
   isOffersLoaded: false,
+  isOfferLoaded: false,
+  isReviewsLoaded: false,
   authStatus: false,
-  user: null
+  user: {}
 };
 
 const reducer = (state = initialState, action) => {
@@ -39,10 +44,31 @@ const reducer = (state = initialState, action) => {
         offers: action.payload,
         isOffersLoaded: true
       };
+    case ActionsTypes.LOAD_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
+        isReviewsLoaded: true
+      };
+    case ActionsTypes.LOAD_OFFER_BY_ID:
+      return {
+        ...state,
+        offer: action.payload,
+        isOfferLoaded: true
+      };
+    case ActionsTypes.LOAD_NEARBY_OFFERS:
+      return {
+        ...state,
+        nearbyOffers: action.payload
+      };
     case ActionsTypes.CHECK_AUTH_STATUS:
       return {
         ...state,
-        authStatus: true,
+        authStatus: action.payload
+      };
+    case ActionsTypes.GET_USER_DATA:
+      return {
+        ...state,
         user: action.payload
       };
     case ActionsTypes.LOGIN:

@@ -1,16 +1,17 @@
 import React from 'react';
+import dayjs from 'dayjs';
 import reviewPropTypes from './review.prop';
 
 const Review = ({review}) => {
-  const {reviewer, rating, text, date} = review;
+  const {user, rating, comment, date} = review;
 
   return <li className="reviews__item">
     <div className="reviews__user user">
       <div className="reviews__avatar-wrapper user__avatar-wrapper">
-        <img className="reviews__avatar user__avatar" src={reviewer.avatarUrl} width="54" height="54" alt="Reviews avatar" />
+        <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
       </div>
       <span className="reviews__user-name">
-        {reviewer.name}
+        {user.name}
       </span>
     </div>
     <div className="reviews__info">
@@ -21,9 +22,9 @@ const Review = ({review}) => {
         </div>
       </div>
       <p className="reviews__text">
-        {text}
+        {comment}
       </p>
-      <time className="reviews__time" dateTime={date.format(`YYYY-MM-DD`)}>{date.format(`MMMM YYYY`)}</time>
+      <time className="reviews__time" dateTime={dayjs(date).format(`YYYY-MM-DD`)}>{dayjs(date).format(`MMMM YYYY`)}</time>
     </div>
   </li>;
 };

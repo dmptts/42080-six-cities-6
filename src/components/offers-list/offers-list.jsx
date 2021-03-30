@@ -33,7 +33,6 @@ OffersList.propTypes = {
 const mapStateToProps = (state) => ({
   currentCity: state.city,
   sortingType: state.sortingType,
-  offers: state.offers
 });
 
 export default connect(mapStateToProps, null)(OffersList);

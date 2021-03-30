@@ -1,8 +1,8 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingScreen from '../loading-screen/loading-screen';
+import Navigation from '../navigation/navigation';
 import CitiesList from '../cities-list/cities-list';
 import Sorting from '../sorting/sorting';
 import OffersList from '../offers-list/offers-list';
@@ -11,9 +11,7 @@ import offersPropTypes from '../offers-list/offers-list.prop';
 import citiesPropTypes from '../cities-list/cities-list.prop';
 
 const Main = (props) => {
-  const {authStatus, isOffersLoaded, offers, cities, currentCity, user} = props;
-
-  const history = useHistory();
+  const {isOffersLoaded, offers, cities, currentCity} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -25,21 +23,7 @@ const Main = (props) => {
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </a>
             </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" onClick={() => history.push(`/favorites`)}>
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                      {authStatus && <img className="header__ avater user__avatar" src={user.avatar_url} width="20" height="20" />}
-                    </div>
-                    {authStatus
-                      ? <span className="header__user-name user__name">{user.email}</span>
-                      : <span className="header__login">Sign in</span>
-                    }
-                  </a>
-                </li>
-              </ul>
-            </nav>
+            <Navigation />
           </div>
         </div>
       </header>
@@ -58,10 +42,10 @@ const Main = (props) => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offers.filter((offer) => offer.city === currentCity).length} places to stay in Amsterdam</b>
                 <Sorting />
-                <OffersList listClasses={`tabs__content cities__places-list`} cardClasses={`cities__place-card`} />
+                <OffersList listClasses={`tabs__content cities__places-list`} cardClasses={`cities__place-card`} offers={offers} />
               </section>
               <div className="cities__right-section">
-                <Map className={`cities__map`} />
+                <Map className={`cities__map`} offers={offers} />
               </div>
             </React.Fragment> : <LoadingScreen />}
           </div>
@@ -76,8 +60,6 @@ Main.propTypes = {
   cities: citiesPropTypes,
   currentCity: PropTypes.string.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
-  authStatus: PropTypes.bool.isRequired,
-  user: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
