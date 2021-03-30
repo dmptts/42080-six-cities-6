@@ -63,7 +63,7 @@ const Map = (props) => {
 
 Map.propTypes = {
   className: PropTypes.string,
-  currentCity: PropTypes.string.isRequired,
+  currentCity: PropTypes.string,
   offers: offersPropTypes,
   activeCard: offerPropTypes
 };

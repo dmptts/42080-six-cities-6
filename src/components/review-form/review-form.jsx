@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {fetchReviews, postReview} from '../../store/api-actions';
 
-const ReviewForm = ({offerID, onSubmit}) => {
+const ReviewForm = ({authStatus, offerID, onSubmit}) => {
   const [reviewForm, setReviewForm] = useState({
     rating: null,
     review: ``
@@ -30,7 +30,7 @@ const ReviewForm = ({offerID, onSubmit}) => {
     setReviewForm({rating: null, review: ``});
   };
 
-  return <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+  return authStatus && <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
     <label className="reviews__label form__label" htmlFor="review">Your review</label>
     <div className="reviews__rating-form form__rating" onChange={handleFieldChange}>
       <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" defaultChecked={rating === `5`} />
@@ -79,9 +79,14 @@ const ReviewForm = ({offerID, onSubmit}) => {
 };
 
 ReviewForm.propTypes = {
+  authStatus: PropTypes.bool.isRequired,
   offerID: PropTypes.number.isRequired,
-  onSubmit: PropTypes.func.isRequired
+  onSubmit: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  authStatus: state.authStatus
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit: (reviewData, id) => {
@@ -91,4 +96,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {ReviewForm};
-export default connect(null, mapDispatchToProps)(ReviewForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);

@@ -53,7 +53,7 @@ export const ActionCreator = {
     type: ActionsTypes.LOAD_NEARBY_OFFERS,
     payload: offers
   }),
-  
+
   checkAuthStatus: (response) => ({
     type: ActionsTypes.CHECK_AUTH_STATUS,
     payload: response

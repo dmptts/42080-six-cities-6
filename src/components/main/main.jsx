@@ -11,7 +11,7 @@ import offersPropTypes from '../offers-list/offers-list.prop';
 import citiesPropTypes from '../cities-list/cities-list.prop';
 
 const Main = (props) => {
-  const {authStatus, isOffersLoaded, offers, cities, currentCity, user} = props;
+  const {isOffersLoaded, offers, cities, currentCity} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -60,8 +60,6 @@ Main.propTypes = {
   cities: citiesPropTypes,
   currentCity: PropTypes.string.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
-  authStatus: PropTypes.bool.isRequired,
-  user: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({
