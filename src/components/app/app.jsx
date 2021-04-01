@@ -8,25 +8,25 @@ import Offer from '../offer/offer';
 import PrivateRoute from '../private-route/private-route';
 import NotFound from '../not-found/not-found';
 import offersPropTypes from '../offers-list/offers-list.prop';
-import {Cities} from '../../const';
+import {AppRoutes, Cities} from '../../const';
 
 const App = () => {
   return (
     <Router history={browserHistory}>
       <Switch>
-        <Route path="/" exact>
+        <Route path={AppRoutes.ROOT} exact>
           <Main cities={Cities}/>;
         </Route>
-        <Route path="/login" exact>
+        <Route path={AppRoutes.LOGIN} exact>
           <Login />
         </Route>
         <PrivateRoute
           exact
-          path="/favorites"
+          path={AppRoutes.FAVORITES}
           render={() => <Favorites />}
         >
         </PrivateRoute>
-        <Route path="/offer/:offerID" exact >
+        <Route path={`${AppRoutes.OFFER}/:offerID`} exact >
           <Offer />
         </Route>
         <Route>

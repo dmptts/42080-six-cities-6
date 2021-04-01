@@ -21,3 +21,16 @@ export const SortingTypes = {
   PRICE_DESCENDING: `Price: high to low`,
   RATING_DESCENDING: `Top rated first`
 };
+
+export const AppRoutes = {
+  ROOT: `/`,
+  LOGIN: `/login`,
+  FAVORITES: `/favorites`,
+  OFFER: `/offer`
+};
+
+export const APIRoutes = {
+  OFFERS: `/hotels`,
+  COMMENTS: `/comments`,
+  LOGIN: `/login`
+};

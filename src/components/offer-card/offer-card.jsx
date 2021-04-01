@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import offerPropTypes from '../offer/offer.prop';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../store/actions';
+import {AppRoutes} from '../../const';
 
 const OfferCard = (props) => {
   const {cardClasses, offer, onCardHover, onCardBlur} = props;
@@ -19,7 +20,7 @@ const OfferCard = (props) => {
         <span>Premium</span>
       </div> : ``}
       <div className={`${cardClasses}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`/offer/${id}`}>
+        <Link to={`${AppRoutes.OFFER}/${id}`}>
           <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place image" />
         </Link>
       </div>

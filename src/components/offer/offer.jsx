@@ -12,6 +12,7 @@ import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import offerPropTypes from './offer.prop';
 import {fetchNearbyOffers, fetchOfferById} from '../../store/api-actions';
 import offersPropTypes from '../offers-list/offers-list.prop';
+import {AppRoutes} from '../../const';
 
 const Offer = ({isOfferLoaded, offer, nearbyOffers, reviews, onLoadData}) => {
   const URLparams = useParams();
@@ -31,7 +32,7 @@ const Offer = ({isOfferLoaded, offer, nearbyOffers, reviews, onLoadData}) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link to={`/`} className="header__logo-link">
+              <Link to={AppRoutes.ROOT} className="header__logo-link">
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>

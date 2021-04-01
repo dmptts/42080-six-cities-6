@@ -1,8 +1,9 @@
 import {ActionCreator} from './actions';
 import {adaptOfferToClient, adaptReviewToClient} from '../utils';
+import {APIRoutes} from '../const';
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
-  api.get(`/hotels`)
+  api.get(APIRoutes.OFFERS)
     .then(({data}) => {
       dispatch(
           ActionCreator.loadOffers(
@@ -14,7 +15,7 @@ export const fetchOffers = () => (dispatch, _getState, api) => {
 };
 
 export const fetchOfferById = (id) => (dispatch, _getState, api) => {
-  api.get(`/hotels/${id}`)
+  api.get(`${APIRoutes.OFFERS}/${id}`)
     .then(({data}) => dispatch(ActionCreator.loadOffer(adaptOfferToClient(data))))
     .catch((error) => {
       if (error.response && error.response.status === 404) {
@@ -24,7 +25,7 @@ export const fetchOfferById = (id) => (dispatch, _getState, api) => {
 };
 
 export const fetchReviews = (id) => (dispatch, _getState, api) => {
-  api.get(`/comments/${id}`)
+  api.get(`${APIRoutes.COMMENTS}/${id}`)
     .then(({data}) => {
       dispatch(
           ActionCreator.loadReviews(
@@ -36,7 +37,7 @@ export const fetchReviews = (id) => (dispatch, _getState, api) => {
 };
 
 export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => {
-  api.get(`/hotels/${id}/nearby`)
+  api.get(`${APIRoutes.OFFERS}/${id}/nearby`)
     .then(({data}) => {
       dispatch(
           ActionCreator.loadNearbyOffers(
@@ -48,7 +49,7 @@ export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => {
 };
 
 export const checkAuthStatus = () => (dispatch, _getState, api) => {
-  api.get(`/login`)
+  api.get(APIRoutes.LOGIN)
     .then(({data}) => {
       dispatch(ActionCreator.checkAuthStatus(true));
       dispatch(ActionCreator.getUserData(data));
@@ -57,11 +58,11 @@ export const checkAuthStatus = () => (dispatch, _getState, api) => {
 };
 
 export const login = ({email, password}) => (dispatch, _getState, api) => {
-  api.post(`/login`, {email, password})
+  api.post(APIRoutes.LOGIN, {email, password})
     .then(({data}) => dispatch(ActionCreator.login(data)))
     .then(() => dispatch(ActionCreator.redirect(`/`)));
 };
 
 export const postReview = ({comment, rating}, id) => (_dispatch, _getState, api) => {
-  api.post(`/comments/${id}`, {comment, rating});
+  api.post(`${APIRoutes.COMMENTS}/${id}`, {comment, rating});
 };

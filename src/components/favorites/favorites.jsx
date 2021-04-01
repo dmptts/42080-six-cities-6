@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import LoadingScreen from '../loading-screen/loading-screen';
-import {Cities} from '../../const';
+import {AppRoutes, Cities} from '../../const';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import {Navigation} from '../navigation/navigation';
 
@@ -18,7 +18,7 @@ const Favorites = ({isOffersLoaded, offers}) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link className="header__logo-link" to={`/`}>
+              <Link className="header__logo-link" to={AppRoutes.ROOT}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>
@@ -88,7 +88,7 @@ const Favorites = ({isOffersLoaded, offers}) => {
       </main>
 
       <footer className="footer container">
-        <Link className="footer__logo-link" to={`/`}>
+        <Link className="footer__logo-link" to={AppRoutes.ROOT}>
           <img className="footer__logo" src="img/logo.svg" alt="6 cities logo" width="64" height="33" />
         </Link>
       </footer>
