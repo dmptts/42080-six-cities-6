@@ -1,11 +1,12 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {getOffers, getOffersLoadStatus} from '../../store/data/selectors';
 import PropTypes from 'prop-types';
-import LoadingScreen from '../loading-screen/loading-screen';
-import {AppRoutes, Cities} from '../../const';
 import offersPropTypes from '../offers-list/offers-list.prop';
-import {Navigation} from '../navigation/navigation';
+import LoadingScreen from '../loading-screen/loading-screen';
+import Navigation from '../navigation/navigation';
+import {AppRoutes, Cities} from '../../const';
 
 const Favorites = ({isOffersLoaded, offers}) => {
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
@@ -101,9 +102,9 @@ Favorites.propTypes = {
   offers: offersPropTypes
 };
 
-const mapStateToProps = ({DATA}) => ({
-  isOffersLoaded: DATA.isOffersLoaded,
-  offers: DATA.offers
+const mapStateToProps = (state) => ({
+  isOffersLoaded: getOffersLoadStatus(state),
+  offers: getOffers(state)
 });
 
 export {Favorites};

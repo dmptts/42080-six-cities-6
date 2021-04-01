@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import offerPropTypes from '../offer/offer.prop';
 import {CitiesCoords} from '../../const';
+import {getActiveCard, getSelectedCity} from '../../store/interface/selectors';
 
 import '../../../node_modules/leaflet/dist/leaflet.css';
 
@@ -68,9 +69,9 @@ Map.propTypes = {
   activeCard: offerPropTypes
 };
 
-const mapStateToProps = ({INTERFACE}) => ({
-  currentCity: INTERFACE.city,
-  activeCard: INTERFACE.activeCard
+const mapStateToProps = (state) => ({
+  currentCity: getSelectedCity(state),
+  activeCard: getActiveCard(state)
 });
 
 export default connect(mapStateToProps, null)(Map);

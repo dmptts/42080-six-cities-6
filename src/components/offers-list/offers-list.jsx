@@ -5,6 +5,7 @@ import offersPropTypes from '../offers-list/offers-list.prop';
 import {connect} from 'react-redux';
 import {sortOffers} from '../../utils';
 import {SortingTypes} from '../../const';
+import {getSelectedCity, getSortingType} from '../../store/interface/selectors';
 
 const OffersList = (props) => {
   const {listClasses, cardClasses, offers, currentCity, sortingType} = props;
@@ -30,9 +31,9 @@ OffersList.propTypes = {
   offers: offersPropTypes
 };
 
-const mapStateToProps = ({INTERFACE}) => ({
-  currentCity: INTERFACE.city,
-  sortingType: INTERFACE.sortingType,
+const mapStateToProps = (state) => ({
+  currentCity: getSelectedCity(state),
+  sortingType: getSortingType(state),
 });
 
 export default connect(mapStateToProps, null)(OffersList);

@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {AppRoutes} from '../../const';
+import {getAuthStatus, getUserData} from '../../store/user/selectors';
 
 const Navigation = ({authStatus, user}) => {
   return <nav className="header__nav">
@@ -27,9 +28,9 @@ Navigation.propTypes = {
   user: PropTypes.object
 };
 
-const mapStateToProps = ({USER}) => ({
-  authStatus: USER.authStatus,
-  user: USER.user
+const mapStateToProps = (state) => ({
+  authStatus: getAuthStatus(state),
+  user: getUserData(state)
 });
 
 export {Navigation};

@@ -9,6 +9,9 @@ import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import citiesPropTypes from '../cities-list/cities-list.prop';
+import {getSelectedCity} from '../../store/interface/selectors';
+import {getOffers, getOffersLoadStatus} from '../../store/data/selectors';
+import {getAuthStatus, getUserData} from '../../store/user/selectors';
 
 const Main = (props) => {
   const {isOffersLoaded, offers, cities, currentCity} = props;
@@ -62,12 +65,12 @@ Main.propTypes = {
   isOffersLoaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = ({INTERFACE, DATA, USER}) => ({
-  currentCity: INTERFACE.city,
-  offers: DATA.offers,
-  isOffersLoaded: DATA.isOffersLoaded,
-  authStatus: USER.authStatus,
-  user: USER.user
+const mapStateToProps = (state) => ({
+  currentCity: getSelectedCity(state),
+  offers: getOffers(state),
+  isOffersLoaded: getOffersLoadStatus(state),
+  authStatus: getAuthStatus(state),
+  user: getUserData(state)
 });
 
 export default connect(mapStateToProps, null)(Main);

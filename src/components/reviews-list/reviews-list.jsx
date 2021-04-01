@@ -6,6 +6,7 @@ import Review from '../review/review';
 import reviewsPropTypes from './reviews-list.prop';
 import ReviewForm from '../review-form/review-form';
 import {MAX_REVIEWS_RENDERED} from '../../const';
+import {getReviews, getReviewsLoadStatus} from '../../store/data/selectors';
 
 const ReviewsList = ({offerID, isReviewsLoaded, reviews, onLoadData}) => {
   useEffect(() => {
@@ -32,9 +33,9 @@ ReviewsList.propTypes = {
   onLoadData: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({DATA}) => ({
-  reviews: DATA.reviews,
-  isReviewsLoaded: DATA.isReviewsLoaded
+const mapStateToProps = (state) => ({
+  reviews: getReviews(state),
+  isReviewsLoaded: getReviewsLoadStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

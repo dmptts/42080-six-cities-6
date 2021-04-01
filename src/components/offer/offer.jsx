@@ -14,6 +14,7 @@ import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import offerPropTypes from './offer.prop';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import {AppRoutes} from '../../const';
+import {getNearbyOffers, getOffer, getOfferLoadStatus} from '../../store/data/selectors';
 
 const Offer = ({isOfferLoaded, offer, nearbyOffers, onLoadData}) => {
   const URLparams = useParams();
@@ -74,10 +75,10 @@ Offer.propTypes = {
   onLoadData: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({DATA}) => ({
-  isOfferLoaded: DATA.isOfferLoaded,
-  offer: DATA.offer,
-  nearbyOffers: DATA.nearbyOffers
+const mapStateToProps = (state) => ({
+  isOfferLoaded: getOfferLoadStatus(state),
+  offer: getOffer(state),
+  nearbyOffers: getNearbyOffers(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({

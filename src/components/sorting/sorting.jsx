@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {SortingTypes} from '../../const';
 import {changeSorting} from '../../store/actions';
 import {connect} from 'react-redux';
+import {getSortingType} from '../../store/interface/selectors';
 
 const Sorting = ({sortingType, onSortingOptionClick}) => {
   const [sortingState, setSortingState] = useState(false);
@@ -69,8 +70,8 @@ Sorting.propTypes = {
   onSortingOptionClick: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({INTERFACE}) => ({
-  sortingType: INTERFACE.sortingType
+const mapStateToProps = (state) => ({
+  sortingType: getSortingType(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
