@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
+import {fetchOffers} from '../../store/api-actions';
 import PropTypes from 'prop-types';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Navigation from '../navigation/navigation';
@@ -14,7 +15,13 @@ import {getOffers, getOffersLoadStatus} from '../../store/data/selectors';
 import {getAuthStatus, getUserData} from '../../store/user/selectors';
 
 const Main = (props) => {
-  const {isOffersLoaded, offers, cities, currentCity} = props;
+  const {isOffersLoaded, onLoadData, offers, cities, currentCity} = props;
+
+  useEffect(() => {
+    if (!isOffersLoaded) {
+      onLoadData();
+    }
+  }, [isOffersLoaded]);
 
   return (
     <div className="page page--gray page--main">
@@ -63,6 +70,7 @@ Main.propTypes = {
   cities: citiesPropTypes,
   currentCity: PropTypes.string.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -73,4 +81,10 @@ const mapStateToProps = (state) => ({
   user: getUserData(state)
 });
 
-export default connect(mapStateToProps, null)(Main);
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchOffers());
+  }
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

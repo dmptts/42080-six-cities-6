@@ -8,7 +8,7 @@ import rootReducer from './store/root-reducer';
 import {createAPI} from './store/api';
 import {redirect} from './store/middlewares/redirect';
 import App from './components/app/app';
-import {fetchOffers, requireAuth} from './store/api-actions';
+import {requireAuth} from './store/api-actions';
 
 const api = createAPI();
 
@@ -21,7 +21,6 @@ const store = createStore(
 );
 
 store.dispatch(requireAuth());
-store.dispatch(fetchOffers());
 
 ReactDOM.render(
     <Provider store={store}>
