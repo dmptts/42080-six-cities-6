@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offerPropTypes from '../offer/offer.prop';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/actions';
+import {setActiveCard, unsetActiveCard} from '../../store/actions';
 import {AppRoutes} from '../../const';
 
 const OfferCard = (props) => {
@@ -61,11 +61,11 @@ OfferCard.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onCardHover: (card) => {
-    dispatch(ActionCreator.setActiveCard(card));
+    dispatch(setActiveCard(card));
   },
 
   onCardBlur: () => {
-    dispatch(ActionCreator.unsetActiveCard());
+    dispatch(unsetActiveCard());
   }
 });
 
