@@ -27,8 +27,8 @@ CitiesList.propTypes = {
   onCityClick: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.city
+const mapStateToProps = ({INTERFACE}) => ({
+  currentCity: INTERFACE.city
 });
 
 const mapDispatchToProps = (dispatch) => ({

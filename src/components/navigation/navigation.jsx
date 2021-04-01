@@ -27,9 +27,9 @@ Navigation.propTypes = {
   user: PropTypes.object
 };
 
-const mapStateToProps = (state) => ({
-  authStatus: state.authStatus,
-  user: state.user
+const mapStateToProps = ({USER}) => ({
+  authStatus: USER.authStatus,
+  user: USER.user
 });
 
 export {Navigation};

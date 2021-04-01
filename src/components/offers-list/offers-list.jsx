@@ -30,9 +30,9 @@ OffersList.propTypes = {
   offers: offersPropTypes
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  sortingType: state.sortingType,
+const mapStateToProps = ({INTERFACE}) => ({
+  currentCity: INTERFACE.city,
+  sortingType: INTERFACE.sortingType,
 });
 
 export default connect(mapStateToProps, null)(OffersList);

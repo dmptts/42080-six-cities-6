@@ -32,9 +32,9 @@ ReviewsList.propTypes = {
   onLoadData: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  reviews: state.reviews,
-  isReviewsLoaded: state.isReviewsLoaded
+const mapStateToProps = ({DATA}) => ({
+  reviews: DATA.reviews,
+  isReviewsLoaded: DATA.isReviewsLoaded
 });
 
 const mapDispatchToProps = (dispatch) => ({

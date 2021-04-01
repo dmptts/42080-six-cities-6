@@ -1,4 +1,4 @@
-import {loadOffers, loadOffer, loadReviews, loadNearbyOffers, redirect, getUserData} from './actions';
+import {loadOffers, loadOffer, loadReviews, loadNearbyOffers, redirect, getUserData, checkAuthStatus} from './actions';
 import {adaptOfferToClient, adaptReviewToClient} from '../utils';
 import {APIRoutes} from '../const';
 
@@ -48,7 +48,7 @@ export const fetchNearbyOffers = (id) => (dispatch, _getState, api) => {
     .catch(() => {});
 };
 
-export const checkAuthStatus = () => (dispatch, _getState, api) => {
+export const requireAuth = () => (dispatch, _getState, api) => {
   api.get(APIRoutes.LOGIN)
     .then(({data}) => {
       dispatch(checkAuthStatus(true));
@@ -59,7 +59,7 @@ export const checkAuthStatus = () => (dispatch, _getState, api) => {
 
 export const login = ({email, password}) => (dispatch, _getState, api) => {
   api.post(APIRoutes.LOGIN, {email, password})
-    .then(({data}) => dispatch(login(data)))
+    .then(({data}) => dispatch(getUserData(data)))
     .then(() => dispatch(redirect(`/`)));
 };
 

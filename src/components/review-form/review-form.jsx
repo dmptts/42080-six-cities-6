@@ -84,8 +84,8 @@ ReviewForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  authStatus: state.authStatus
+const mapStateToProps = ({USER}) => ({
+  authStatus: USER.authStatus
 });
 
 const mapDispatchToProps = (dispatch) => ({

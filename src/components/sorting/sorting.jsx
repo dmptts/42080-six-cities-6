@@ -69,8 +69,8 @@ Sorting.propTypes = {
   onSortingOptionClick: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => ({
-  sortingType: state.sortingType
+const mapStateToProps = ({INTERFACE}) => ({
+  sortingType: INTERFACE.sortingType
 });
 
 const mapDispatchToProps = (dispatch) => ({

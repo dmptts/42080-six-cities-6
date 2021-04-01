@@ -68,9 +68,9 @@ Map.propTypes = {
   activeCard: offerPropTypes
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  activeCard: state.activeCard
+const mapStateToProps = ({INTERFACE}) => ({
+  currentCity: INTERFACE.city,
+  activeCard: INTERFACE.activeCard
 });
 
 export default connect(mapStateToProps, null)(Map);

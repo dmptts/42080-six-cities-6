@@ -62,12 +62,12 @@ Main.propTypes = {
   isOffersLoaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  offers: state.offers,
-  isOffersLoaded: state.isOffersLoaded,
-  authStatus: state.authStatus,
-  user: state.user
+const mapStateToProps = ({INTERFACE, DATA, USER}) => ({
+  currentCity: INTERFACE.city,
+  offers: DATA.offers,
+  isOffersLoaded: DATA.isOffersLoaded,
+  authStatus: USER.authStatus,
+  user: USER.user
 });
 
 export default connect(mapStateToProps, null)(Main);

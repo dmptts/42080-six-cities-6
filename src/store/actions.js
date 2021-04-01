@@ -1,15 +1,14 @@
 export const ActionsTypes = {
-  CHANGE_CITY: `main/changeCity`,
-  CHANGE_SORTING: `main/changeSorting`,
-  SET_ACTIVE_CARD: `offer-card/setActiveCard`,
-  UNSET_ACTIVE_CARD: `offer-card/unsetActiveCard`,
+  CHANGE_CITY: `interface/changeCity`,
+  CHANGE_SORTING: `interface/changeSorting`,
+  SET_ACTIVE_CARD: `interface/setActiveCard`,
+  UNSET_ACTIVE_CARD: `interface/unsetActiveCard`,
   LOAD_OFFERS: `data/loadOffers`,
   LOAD_OFFER_BY_ID: `data/loadOfferByID`,
   LOAD_REVIEWS: `data/loadReviews`,
   LOAD_NEARBY_OFFERS: `data/loadNearbyOffers`,
   CHECK_AUTH_STATUS: `user/checkAuthStatus`,
   GET_USER_DATA: `user/getUserData`,
-  LOGIN: `user/login`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`
 };
 
@@ -61,11 +60,6 @@ export const checkAuthStatus = (response) => ({
 export const getUserData = (userData) => ({
   type: ActionsTypes.GET_USER_DATA,
   payload: userData
-});
-
-export const login = (response) => ({
-  type: ActionsTypes.LOGIN,
-  payload: response
 });
 
 export const redirect = (url) => ({

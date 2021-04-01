@@ -101,9 +101,9 @@ Favorites.propTypes = {
   offers: offersPropTypes
 };
 
-const mapStateToProps = (state) => ({
-  isOffersLoaded: state.isOffersLoaded,
-  offers: state.offers
+const mapStateToProps = ({DATA}) => ({
+  isOffersLoaded: DATA.isOffersLoaded,
+  offers: DATA.offers
 });
 
 export {Favorites};
