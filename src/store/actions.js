@@ -9,7 +9,8 @@ export const ActionsTypes = {
   LOAD_NEARBY_OFFERS: `data/loadNearbyOffers`,
   CHECK_AUTH_STATUS: `user/checkAuthStatus`,
   GET_USER_DATA: `user/getUserData`,
-  REDIRECT_TO_ROUTE: `route/redirectToRoute`
+  REDIRECT_TO_ROUTE: `route/redirectToRoute`,
+  RESET_OFFER_DATA: `data/resetOfferData`
 };
 
 export const changeCity = (city) => ({
@@ -65,4 +66,8 @@ export const getUserData = (userData) => ({
 export const redirect = (url) => ({
   type: ActionsTypes.REDIRECT_TO_ROUTE,
   payload: url
+});
+
+export const resetOfferData = () => ({
+  type: ActionsTypes.RESET_OFFER_DATA,
 });

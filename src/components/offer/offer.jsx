@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {fetchNearbyOffers, fetchOfferById} from '../../store/api-actions';
+import {fetchNearbyOffers, fetchOfferById, fetchReviews} from '../../store/api-actions';
 import PropTypes from 'prop-types';
 import Navigation from '../navigation/navigation';
 import ReviewsList from '../reviews-list/reviews-list';
@@ -14,19 +14,20 @@ import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import offerPropTypes from './offer.prop';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import {AppRoutes} from '../../const';
-import {getNearbyOffers, getOffer, getOfferLoadStatus} from '../../store/data/selectors';
+import {getNearbyOffers, getOffer, getOfferLoadStatus, getReviews} from '../../store/data/selectors';
+import {resetOfferData} from '../../store/actions';
 
-const Offer = ({isOfferLoaded, offer, nearbyOffers, onLoadData}) => {
+const Offer = ({isOfferDataLoaded, offer, reviews, nearbyOffers, onLoadData, onUnmount}) => {
   const URLparams = useParams();
   const offerID = Number(URLparams.offerID);
 
   useEffect(() => {
     onLoadData(offerID);
-  }, [offerID]);
 
-  if (!isOfferLoaded) {
-    onLoadData(offerID);
-  }
+    return () => {
+      onUnmount();
+    };
+  }, [offerID]);
 
   return (
     <React.Fragment>
@@ -44,13 +45,13 @@ const Offer = ({isOfferLoaded, offer, nearbyOffers, onLoadData}) => {
       </header>
 
       <main className="page__main page__main--property">
-        {isOfferLoaded ? <React.Fragment>
+        {isOfferDataLoaded ? <React.Fragment>
           <section className="property">
             <Gallery offer={offer} />
             <div className="property__container container">
               <div className="property__wrapper">
                 <OfferInfo offer={offer} />
-                <ReviewsList offerID={offerID} />
+                <ReviewsList reviews={reviews} offerID={offerID}/>
               </div>
             </div>
             <Map className={`property__map`} offers={nearbyOffers} />
@@ -68,23 +69,30 @@ const Offer = ({isOfferLoaded, offer, nearbyOffers, onLoadData}) => {
 };
 
 Offer.propTypes = {
-  isOfferLoaded: PropTypes.bool.isRequired,
+  isOfferDataLoaded: PropTypes.bool.isRequired,
   offer: offerPropTypes,
   nearbyOffers: offersPropTypes,
   reviews: reviewsPropTypes,
-  onLoadData: PropTypes.func.isRequired
+  onLoadData: PropTypes.func.isRequired,
+  onUnmount: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  isOfferLoaded: getOfferLoadStatus(state),
+  isOfferDataLoaded: getOfferLoadStatus(state),
   offer: getOffer(state),
+  reviews: getReviews(state),
   nearbyOffers: getNearbyOffers(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData(id) {
     dispatch(fetchOfferById(id));
+    dispatch(fetchReviews(id));
     dispatch(fetchNearbyOffers(id));
+  },
+
+  onUnmount() {
+    dispatch(resetOfferData());
   }
 });
 

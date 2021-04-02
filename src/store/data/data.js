@@ -6,8 +6,7 @@ const initialState = {
   reviews: [],
   nearbyOffers: [],
   isOffersLoaded: false,
-  isOfferLoaded: false,
-  isReviewsLoaded: false,
+  isOfferDataLoaded: false
 };
 
 const appData = (state = initialState, action) => {
@@ -21,19 +20,26 @@ const appData = (state = initialState, action) => {
     case ActionsTypes.LOAD_REVIEWS:
       return {
         ...state,
-        reviews: action.payload,
-        isReviewsLoaded: true
+        reviews: action.payload
       };
     case ActionsTypes.LOAD_OFFER_BY_ID:
       return {
         ...state,
         offer: action.payload,
-        isOfferLoaded: true
+        isOfferDataLoaded: true
       };
     case ActionsTypes.LOAD_NEARBY_OFFERS:
       return {
         ...state,
         nearbyOffers: action.payload
+      };
+    case ActionsTypes.RESET_OFFER_DATA:
+      return {
+        ...state,
+        isOfferDataLoaded: false,
+        offer: {},
+        reviews: [],
+        nearbyOffers: []
       };
   }
 

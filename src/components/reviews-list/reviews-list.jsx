@@ -1,6 +1,5 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
-import {fetchReviews} from '../../store/api-actions';
 import PropTypes from 'prop-types';
 import Review from '../review/review';
 import reviewsPropTypes from './reviews-list.prop';
@@ -8,15 +7,7 @@ import ReviewForm from '../review-form/review-form';
 import {MAX_REVIEWS_RENDERED} from '../../const';
 import {getReviews, getReviewsLoadStatus} from '../../store/data/selectors';
 
-const ReviewsList = ({offerID, isReviewsLoaded, reviews, onLoadData}) => {
-  useEffect(() => {
-    onLoadData(offerID);
-  }, [offerID]);
-
-  if (!isReviewsLoaded) {
-    onLoadData(offerID);
-  }
-
+const ReviewsList = ({reviews, offerID}) => {
   return <section className="property__reviews reviews">
     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
     <ul className="reviews__list">
@@ -28,9 +19,7 @@ const ReviewsList = ({offerID, isReviewsLoaded, reviews, onLoadData}) => {
 
 ReviewsList.propTypes = {
   offerID: PropTypes.number.isRequired,
-  isReviewsLoaded: PropTypes.bool.isRequired,
-  reviews: reviewsPropTypes,
-  onLoadData: PropTypes.func.isRequired
+  reviews: reviewsPropTypes
 };
 
 const mapStateToProps = (state) => ({
@@ -38,11 +27,5 @@ const mapStateToProps = (state) => ({
   isReviewsLoaded: getReviewsLoadStatus(state)
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onLoadData(id) {
-    dispatch(fetchReviews(id));
-  }
-});
-
 export {ReviewsList};
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewsList);
+export default connect(mapStateToProps, null)(ReviewsList);

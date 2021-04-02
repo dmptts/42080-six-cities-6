@@ -26,7 +26,7 @@ const App = () => {
           render={() => <Favorites />}
         >
         </PrivateRoute>
-        <Route path={`${AppRoutes.OFFER}/:offerID`} exact >
+        <Route path={`${AppRoutes.OFFER}/:offerID`} exact>
           <Offer />
         </Route>
         <Route>
@@ -38,7 +38,7 @@ const App = () => {
 };
 
 App.propTypes = {
-  offers: offersPropTypes
+  offers: offersPropTypes,
 };
 
 export default App;
