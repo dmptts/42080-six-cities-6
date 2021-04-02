@@ -3,23 +3,17 @@ import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import {connect} from 'react-redux';
-import {sortOffers} from '../../utils';
-import {SortingTypes} from '../../const';
 import {getSelectedCity, getSortingType} from '../../store/interface/selectors';
 
 const OffersList = (props) => {
-  const {listClasses, cardClasses, offers, currentCity, sortingType} = props;
-
-  const sortedOffers = (sortingType === SortingTypes.POPULARITY_DESCENDING) ? offers : sortOffers(offers.slice(), sortingType);
+  const {listClasses, cardClasses, offers} = props;
 
   return <div className={`${listClasses} places__list`}>
-    {sortedOffers.map((offer) => offer.city === currentCity &&
-      <OfferCard
-        cardClasses={cardClasses}
-        key={offer.id}
-        offer={offer}
-      />
-    )}
+    {offers.map((offer) => <OfferCard
+      cardClasses={cardClasses}
+      key={offer.id}
+      offer={offer}
+    />)}
   </div>;
 };
 
