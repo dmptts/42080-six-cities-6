@@ -77,3 +77,7 @@ export const fetchFavorites = () => (dispatch, _getState, api) => {
       );
     });
 };
+
+export const postFavorite = (status, id) => (_dispatch, _getState, api) => {
+  api.post(`${APIRoutes.FAVORITE}/${id}/${status}`);
+};
