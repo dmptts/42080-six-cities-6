@@ -5,8 +5,10 @@ const initialState = {
   offer: {},
   reviews: [],
   nearbyOffers: [],
+  favoriteOffers: [],
   isOffersLoaded: false,
-  isOfferDataLoaded: false
+  isOfferDataLoaded: false,
+  isFavoritesLoaded: false
 };
 
 const appData = (state = initialState, action) => {
@@ -40,6 +42,12 @@ const appData = (state = initialState, action) => {
         offer: {},
         reviews: [],
         nearbyOffers: []
+      };
+    case ActionsTypes.LOAD_FAVORITES:
+      return {
+        ...state,
+        favoriteOffers: action.payload,
+        isFavoritesLoaded: true
       };
   }
 

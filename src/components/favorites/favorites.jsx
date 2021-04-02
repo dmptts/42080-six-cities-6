@@ -1,15 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getOffers, getOffersLoadStatus} from '../../store/data/selectors';
+import {getFavoriteOffers, getFavoritesLoadStatus} from '../../store/data/selectors';
 import PropTypes from 'prop-types';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Navigation from '../navigation/navigation';
 import {AppRoutes, Cities} from '../../const';
+import {fetchFavorites} from '../../store/api-actions';
 
-const Favorites = ({isOffersLoaded, offers}) => {
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+const Favorites = ({isFavoritesLoaded, favoriteOffers, onLoadData}) => {
+
+  useEffect(() => {
+    if (!isFavoritesLoaded) {
+      onLoadData();
+    }
+  }, [isFavoritesLoaded]);
+
   const favoritesCities = favoriteOffers.map((offer) => offer.city);
   const favoritesCitiesInOrder = Cities.filter((city) => favoritesCities.includes(city)); // Позволяет сохранить последовательность городов в соответсвие с главной страницей
 
@@ -29,7 +36,7 @@ const Favorites = ({isOffersLoaded, offers}) => {
       </header>
 
       <main className="page__main page__main--favorites">
-        {isOffersLoaded ? <div className="page__favorites-container container">
+        {isFavoritesLoaded ? <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
@@ -98,14 +105,21 @@ const Favorites = ({isOffersLoaded, offers}) => {
 };
 
 Favorites.propTypes = {
-  isOffersLoaded: PropTypes.bool.isRequired,
-  offers: offersPropTypes
+  isFavoritesLoaded: PropTypes.bool.isRequired,
+  favoriteOffers: offersPropTypes,
+  onLoadData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  isOffersLoaded: getOffersLoadStatus(state),
-  offers: getOffers(state)
+  isFavoritesLoaded: getFavoritesLoadStatus(state),
+  favoriteOffers: getFavoriteOffers(state)
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadData() {
+    dispatch(fetchFavorites());
+  }
 });
 
 export {Favorites};
-export default connect(mapStateToProps, null)(Favorites);
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
