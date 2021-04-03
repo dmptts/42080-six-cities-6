@@ -8,14 +8,18 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import Navigation from '../navigation/navigation';
 import {AppRoutes, Cities} from '../../const';
 import {fetchFavorites} from '../../store/api-actions';
+import FavoriteCard from '../favorite-offer-card/favorite-offer-card';
+import {resetFavorites} from '../../store/actions';
 
-const Favorites = ({isFavoritesLoaded, favoriteOffers, onLoadData}) => {
+const Favorites = ({isFavoritesLoaded, favoriteOffers, onLoadData, onUnmount}) => {
 
   useEffect(() => {
-    if (!isFavoritesLoaded) {
-      onLoadData();
-    }
-  }, [isFavoritesLoaded]);
+    onLoadData();
+
+    return () => {
+      onUnmount();
+    };
+  }, []);
 
   const favoritesCities = favoriteOffers.map((offer) => offer.city);
   const favoritesCitiesInOrder = Cities.filter((city) => favoritesCities.includes(city)); // Позволяет сохранить последовательность городов в соответсвие с главной страницей
@@ -53,37 +57,7 @@ const Favorites = ({isFavoritesLoaded, favoriteOffers, onLoadData}) => {
                     <div className="favorites__places">
                       {
                         favoriteOffers.map((offer) => {
-                          return (city === offer.city) ? <article className="favorites__card place-card" key={offer.id}>
-                            <div className="favorites__image-wrapper place-card__image-wrapper">
-                              <a href="#">
-                                <img className="place-card__image" src={offer.previewImage} width="150" height="110" alt="Place image" />
-                              </a>
-                            </div>
-                            <div className="favorites__card-info place-card__info">
-                              <div className="place-card__price-wrapper">
-                                <div className="place-card__price">
-                                  <b className="place-card__price-value">&euro;{offer.price}</b>
-                                  <span className="place-card__price-text">&#47;&nbsp;night</span>
-                                </div>
-                                <button className="place-card__bookmark-button place-card__bookmark-button--active button" type="button">
-                                  <svg className="place-card__bookmark-icon" width="18" height="19">
-                                    <use xlinkHref="#icon-bookmark"></use>
-                                  </svg>
-                                  <span className="visually-hidden">In bookmarks</span>
-                                </button>
-                              </div>
-                              <div className="place-card__rating rating">
-                                <div className="place-card__stars rating__stars">
-                                  <span style={{width: Math.round(offer.rating) * 20 + `%`}}></span>
-                                  <span className="visually-hidden">Rating</span>
-                                </div>
-                              </div>
-                              <h2 className="place-card__name">
-                                <a href="#">{offer.title}</a>
-                              </h2>
-                              <p className="place-card__type">{offer.type[0].toUpperCase() + offer.type.slice(1)}</p>
-                            </div>
-                          </article> : ``;
+                          return (city === offer.city) ? <FavoriteCard key={offer.id} offer={offer} /> : ``;
                         })
                       }
                     </div>
@@ -107,7 +81,8 @@ const Favorites = ({isFavoritesLoaded, favoriteOffers, onLoadData}) => {
 Favorites.propTypes = {
   isFavoritesLoaded: PropTypes.bool.isRequired,
   favoriteOffers: offersPropTypes,
-  onLoadData: PropTypes.func.isRequired
+  onLoadData: PropTypes.func.isRequired,
+  onUnmount: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -118,6 +93,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchFavorites());
+  },
+
+  onUnmount() {
+    dispatch(resetFavorites());
   }
 });
 

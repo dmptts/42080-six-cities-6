@@ -49,6 +49,18 @@ const appData = (state = initialState, action) => {
         favoriteOffers: action.payload,
         isFavoritesLoaded: true
       };
+    case ActionsTypes.RESET_FAVORITES:
+      return {
+        ...state,
+        favoriteOffers: [],
+        isFavoritesLoaded: false
+      };
+    case ActionsTypes.RESET_OFFERS:
+      return {
+        ...state,
+        offers: [],
+        isOffersLoaded: false
+      };
   }
 
   return state;

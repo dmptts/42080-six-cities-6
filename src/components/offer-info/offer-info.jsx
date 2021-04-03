@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {postFavorite} from '../../store/api-actions';
+import {fetchOfferById, postFavorite} from '../../store/api-actions';
 import PropTypes from 'prop-types';
 import Host from '../host/host';
 import offerPropTypes from '../offer/offer.prop';
@@ -81,6 +81,7 @@ OfferInfo.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   onFavoriteClick(status, id) {
     dispatch(postFavorite(status, id));
+    dispatch(fetchOfferById(id));
   }
 });
 

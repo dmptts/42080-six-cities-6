@@ -7,16 +7,19 @@ import Navigation from '../navigation/navigation';
 import CitiesList from '../cities-list/cities-list';
 import citiesPropTypes from '../cities-list/cities-list.prop';
 import {getOffersLoadStatus} from '../../store/data/selectors';
+import {resetOffers} from '../../store/actions';
 import CityOffers from '../city-offers/city-offers';
 
 const Main = (props) => {
-  const {isOffersLoaded, onLoadData, cities} = props;
+  const {isOffersLoaded, onLoadData, onUnmount, cities} = props;
 
   useEffect(() => {
-    if (!isOffersLoaded) {
-      onLoadData();
-    }
-  }, [isOffersLoaded]);
+    onLoadData();
+
+    return () => {
+      onUnmount();
+    };
+  }, []);
 
   return (
     <div className="page page--gray page--main">
@@ -51,7 +54,8 @@ const Main = (props) => {
 Main.propTypes = {
   cities: citiesPropTypes,
   isOffersLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired
+  onLoadData: PropTypes.func.isRequired,
+  onUnmount: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -61,6 +65,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchOffers());
+  },
+
+  onUnmount() {
+    dispatch(resetOffers());
   }
 });
 
