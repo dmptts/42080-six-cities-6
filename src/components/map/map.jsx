@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import offerPropTypes from '../offer/offer.prop';
 import {CitiesCoords} from '../../const';
+import {getActiveCard, getSelectedCity} from '../../store/interface/selectors';
 
 import '../../../node_modules/leaflet/dist/leaflet.css';
 
@@ -69,8 +70,8 @@ Map.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city,
-  activeCard: state.activeCard
+  currentCity: getSelectedCity(state),
+  activeCard: getActiveCard(state)
 });
 
 export default connect(mapStateToProps, null)(Map);

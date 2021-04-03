@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/actions';
+import {changeCity} from '../../store/actions';
+import {getSelectedCity} from '../../store/interface/selectors';
 import citiesPropTypes from './cities-list.prop';
 
 const CitiesList = (props) => {
@@ -28,12 +29,12 @@ CitiesList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: state.city
+  currentCity: getSelectedCity(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityClick(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   }
 });
 

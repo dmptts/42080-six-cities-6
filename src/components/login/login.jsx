@@ -2,6 +2,7 @@ import React, {useRef} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {login} from '../../store/api-actions';
+import {AppRoutes} from '../../const';
 import PropTypes from 'prop-types';
 
 const Login = ({onSubmit}) => {
@@ -23,7 +24,7 @@ const Login = ({onSubmit}) => {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <Link className="header__logo-link" to={`/`}>
+              <Link className="header__logo-link" to={AppRoutes.ROOT}>
                 <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
               </Link>
             </div>

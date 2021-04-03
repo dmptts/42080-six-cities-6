@@ -2,12 +2,14 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import {AppRoutes} from '../../const';
+import {getAuthStatus, getUserData} from '../../store/user/selectors';
 
 const Navigation = ({authStatus, user}) => {
   return <nav className="header__nav">
     <ul className="header__nav-list">
       <li className="header__nav-item user">
-        <Link to={`/favorites`} className="header__nav-link header__nav-link--profile">
+        <Link to={AppRoutes.FAVORITES} className="header__nav-link header__nav-link--profile">
           <div className="header__avatar-wrapper user__avatar-wrapper">
             {authStatus && <img className="header__ avater user__avatar" src={user.avatar_url} width="20" height="20" />}
           </div>
@@ -27,8 +29,8 @@ Navigation.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authStatus: state.authStatus,
-  user: state.user
+  authStatus: getAuthStatus(state),
+  user: getUserData(state)
 });
 
 export {Navigation};

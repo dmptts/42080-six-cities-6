@@ -4,31 +4,27 @@ import {applyMiddleware, createStore} from 'redux';
 import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
-import {reducer} from './store/reducer';
+import rootReducer from './store/root-reducer';
 import {createAPI} from './store/api';
 import {redirect} from './store/middlewares/redirect';
 import App from './components/app/app';
-import reviews from './mock/reviews';
-import {checkAuthStatus, fetchOffers} from './store/api-actions';
+import {requireAuth} from './store/api-actions';
 
 const api = createAPI();
 
 const store = createStore(
-    reducer,
+    rootReducer,
     composeWithDevTools(
         applyMiddleware(thunk.withExtraArgument(api)),
         applyMiddleware(redirect)
     )
 );
 
-store.dispatch(checkAuthStatus());
-store.dispatch(fetchOffers());
+store.dispatch(requireAuth());
 
 ReactDOM.render(
     <Provider store={store}>
-      <App
-        reviews={reviews}
-      />
+      <App />
     </Provider>,
     document.querySelector(`#root`)
 );

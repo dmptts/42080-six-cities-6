@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {fetchReviews, postReview} from '../../store/api-actions';
+import {getAuthStatus} from '../../store/user/selectors';
 
 const ReviewForm = ({authStatus, offerID, onSubmit}) => {
   const [reviewForm, setReviewForm] = useState({
@@ -85,7 +86,7 @@ ReviewForm.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  authStatus: state.authStatus
+  authStatus: getAuthStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
