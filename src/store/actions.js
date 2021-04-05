@@ -10,7 +10,10 @@ export const ActionsTypes = {
   CHECK_AUTH_STATUS: `user/checkAuthStatus`,
   GET_USER_DATA: `user/getUserData`,
   REDIRECT_TO_ROUTE: `route/redirectToRoute`,
-  RESET_OFFER_DATA: `data/resetOfferData`
+  RESET_OFFER_DATA: `data/resetOfferData`,
+  LOAD_FAVORITES: `data/loadFavorites`,
+  RESET_FAVORITES: `data/resetFavorites`,
+  RESET_OFFERS: `data/resetOffers`
 };
 
 export const changeCity = (city) => ({
@@ -70,4 +73,17 @@ export const redirect = (url) => ({
 
 export const resetOfferData = () => ({
   type: ActionsTypes.RESET_OFFER_DATA,
+});
+
+export const loadFavorites = (favorites) => ({
+  type: ActionsTypes.LOAD_FAVORITES,
+  payload: favorites
+});
+
+export const resetFavorites = () => ({
+  type: ActionsTypes.RESET_FAVORITES,
+});
+
+export const resetOffers = () => ({
+  type: ActionsTypes.RESET_OFFERS
 });

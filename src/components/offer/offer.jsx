@@ -27,7 +27,7 @@ const Offer = ({isOfferDataLoaded, offer, reviews, nearbyOffers, onLoadData, onU
     return () => {
       onUnmount();
     };
-  }, [offerID]);
+  }, []);
 
   return (
     <React.Fragment>

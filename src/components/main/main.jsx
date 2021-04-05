@@ -5,23 +5,21 @@ import PropTypes from 'prop-types';
 import LoadingScreen from '../loading-screen/loading-screen';
 import Navigation from '../navigation/navigation';
 import CitiesList from '../cities-list/cities-list';
-import Sorting from '../sorting/sorting';
-import OffersList from '../offers-list/offers-list';
-import Map from '../map/map';
-import offersPropTypes from '../offers-list/offers-list.prop';
 import citiesPropTypes from '../cities-list/cities-list.prop';
-import {getSelectedCity} from '../../store/interface/selectors';
-import {getOffers, getOffersLoadStatus} from '../../store/data/selectors';
-import {getAuthStatus, getUserData} from '../../store/user/selectors';
+import {getOffersLoadStatus} from '../../store/data/selectors';
+import {resetOffers} from '../../store/actions';
+import CityOffers from '../city-offers/city-offers';
 
 const Main = (props) => {
-  const {isOffersLoaded, onLoadData, offers, cities, currentCity} = props;
+  const {isOffersLoaded, onLoadData, onUnmount, cities} = props;
 
   useEffect(() => {
-    if (!isOffersLoaded) {
-      onLoadData();
-    }
-  }, [isOffersLoaded]);
+    onLoadData();
+
+    return () => {
+      onUnmount();
+    };
+  }, []);
 
   return (
     <div className="page page--gray page--main">
@@ -46,19 +44,7 @@ const Main = (props) => {
           </section>
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            {isOffersLoaded ? <React.Fragment>
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">{offers.filter((offer) => offer.city === currentCity).length} places to stay in Amsterdam</b>
-                <Sorting />
-                <OffersList listClasses={`tabs__content cities__places-list`} cardClasses={`cities__place-card`} offers={offers} />
-              </section>
-              <div className="cities__right-section">
-                <Map className={`cities__map`} offers={offers} />
-              </div>
-            </React.Fragment> : <LoadingScreen />}
-          </div>
+          {isOffersLoaded ? <CityOffers /> : <LoadingScreen />}
         </div>
       </main>
     </div>
@@ -66,24 +52,23 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  offers: offersPropTypes,
   cities: citiesPropTypes,
-  currentCity: PropTypes.string.isRequired,
   isOffersLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired
+  onLoadData: PropTypes.func.isRequired,
+  onUnmount: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
-  currentCity: getSelectedCity(state),
-  offers: getOffers(state),
-  isOffersLoaded: getOffersLoadStatus(state),
-  authStatus: getAuthStatus(state),
-  user: getUserData(state)
+  isOffersLoaded: getOffersLoadStatus(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onLoadData() {
     dispatch(fetchOffers());
+  },
+
+  onUnmount() {
+    dispatch(resetOffers());
   }
 });
 

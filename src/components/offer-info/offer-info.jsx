@@ -1,9 +1,12 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {fetchOfferById, postFavorite} from '../../store/api-actions';
+import PropTypes from 'prop-types';
 import Host from '../host/host';
 import offerPropTypes from '../offer/offer.prop';
 
-const OfferInfo = ({offer}) => {
-  const {isPremium, title, rating, type, bedrooms, maxAdults, price, goods, description} = offer;
+const OfferInfo = ({offer, onFavoriteClick}) => {
+  const {id, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, description} = offer;
 
   return <React.Fragment>
     {isPremium && <div className="property__mark">
@@ -13,7 +16,13 @@ const OfferInfo = ({offer}) => {
       <h1 className="property__name">
         {title}
       </h1>
-      <button className="property__bookmark-button button" type="button">
+      <button
+        className={`property__bookmark-button button${isFavorite ? ` property__bookmark-button--active` : ``}`}
+        type="button"
+        onClick={() => {
+          onFavoriteClick(Number(!isFavorite), id);
+        }}
+      >
         <svg className="property__bookmark-icon" width="31" height="33">
           <use xlinkHref="#icon-bookmark"></use>
         </svg>
@@ -64,6 +73,17 @@ const OfferInfo = ({offer}) => {
   </React.Fragment>;
 };
 
-OfferInfo.propTypes = {offer: offerPropTypes};
+OfferInfo.propTypes = {
+  offer: offerPropTypes,
+  onFavoriteClick: PropTypes.func.isRequired
+};
 
-export default OfferInfo;
+const mapDispatchToProps = (dispatch) => ({
+  onFavoriteClick(status, id) {
+    dispatch(postFavorite(status, id));
+    dispatch(fetchOfferById(id));
+  }
+});
+
+export {OfferInfo};
+export default connect(null, mapDispatchToProps)(OfferInfo);

@@ -1,4 +1,4 @@
-import {loadOffers, loadOffer, loadReviews, loadNearbyOffers, redirect, getUserData, checkAuthStatus} from './actions';
+import {loadOffers, loadOffer, loadReviews, loadNearbyOffers, redirect, getUserData, checkAuthStatus, loadFavorites} from './actions';
 import {adaptOfferToClient, adaptReviewToClient} from '../utils';
 import {APIRoutes} from '../const';
 
@@ -65,4 +65,19 @@ export const login = ({email, password}) => (dispatch, _getState, api) => {
 
 export const postReview = ({comment, rating}, id) => (_dispatch, _getState, api) => {
   api.post(`${APIRoutes.COMMENTS}/${id}`, {comment, rating});
+};
+
+export const fetchFavorites = () => (dispatch, _getState, api) => {
+  api.get(APIRoutes.FAVORITE)
+    .then(({data}) => {
+      dispatch(
+          loadFavorites(
+              data.map((offer) => adaptOfferToClient(offer))
+          )
+      );
+    });
+};
+
+export const postFavorite = (status, id) => (_dispatch, _getState, api) => {
+  api.post(`${APIRoutes.FAVORITE}/${id}/${status}`);
 };

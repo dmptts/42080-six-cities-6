@@ -5,10 +5,11 @@ import offerPropTypes from '../offer/offer.prop';
 import {connect} from 'react-redux';
 import {setActiveCard, unsetActiveCard} from '../../store/actions';
 import {AppRoutes} from '../../const';
+import {fetchOffers, postFavorite} from '../../store/api-actions';
 
 const OfferCard = (props) => {
-  const {cardClasses, offer, onCardHover, onCardBlur} = props;
-  const {id, title, previewImage, price, isPremium, type, rating} = offer;
+  const {cardClasses, offer, onCardHover, onCardBlur, onFavoriteClick} = props;
+  const {id, title, previewImage, price, isPremium, type, rating, isFavorite} = offer;
 
   return (
     <article
@@ -30,7 +31,13 @@ const OfferCard = (props) => {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            className={`place-card__bookmark-button button${isFavorite ? ` place-card__bookmark-button--active` : ``}`}
+            type="button"
+            onClick={() => {
+              onFavoriteClick(Number(!isFavorite), id);
+            }}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
@@ -56,7 +63,8 @@ OfferCard.propTypes = {
   cardClasses: PropTypes.string.isRequired,
   offer: offerPropTypes,
   onCardHover: PropTypes.func.isRequired,
-  onCardBlur: PropTypes.func.isRequired
+  onCardBlur: PropTypes.func.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -66,6 +74,11 @@ const mapDispatchToProps = (dispatch) => ({
 
   onCardBlur: () => {
     dispatch(unsetActiveCard());
+  },
+
+  onFavoriteClick: (status, id) => {
+    dispatch(postFavorite(status, id));
+    dispatch(fetchOffers());
   }
 });
 
