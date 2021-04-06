@@ -15,9 +15,9 @@ import offerPropTypes from './offer.prop';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import {AppRoutes} from '../../const';
 import {getNearbyOffers, getOffer, getOfferLoadStatus, getReviews} from '../../store/data/selectors';
-import {resetOfferData} from '../../store/actions';
+import {resetOfferData, setActiveCard} from '../../store/actions';
 
-const Offer = ({isOfferDataLoaded, offer, reviews, nearbyOffers, onLoadData, onUnmount}) => {
+const Offer = ({isOfferDataLoaded, offer, reviews, nearbyOffers, onLoadData, onDataLoaded, onUnmount}) => {
   const URLparams = useParams();
   const offerID = Number(URLparams.offerID);
 
@@ -28,6 +28,12 @@ const Offer = ({isOfferDataLoaded, offer, reviews, nearbyOffers, onLoadData, onU
       onUnmount();
     };
   }, []);
+
+  useEffect(() => {
+    if (isOfferDataLoaded) {
+      onDataLoaded(offer);
+    }
+  }, [isOfferDataLoaded]);
 
   return (
     <React.Fragment>
@@ -54,7 +60,7 @@ const Offer = ({isOfferDataLoaded, offer, reviews, nearbyOffers, onLoadData, onU
                 <ReviewsList reviews={reviews} offerID={offerID}/>
               </div>
             </div>
-            <Map className={`property__map`} offers={nearbyOffers} />
+            <Map className={`property__map`} offers={nearbyOffers} currentOffer={offer} />
           </section>
           <div className="container">
             <section className="near-places places">
@@ -74,6 +80,7 @@ Offer.propTypes = {
   nearbyOffers: offersPropTypes,
   reviews: reviewsPropTypes,
   onLoadData: PropTypes.func.isRequired,
+  onDataLoaded: PropTypes.func.isRequired,
   onUnmount: PropTypes.func.isRequired
 };
 
@@ -89,6 +96,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchOfferById(id));
     dispatch(fetchReviews(id));
     dispatch(fetchNearbyOffers(id));
+  },
+
+  onDataLoaded(offer) {
+    dispatch(setActiveCard(offer));
   },
 
   onUnmount() {

@@ -10,7 +10,7 @@ import {getActiveCard, getSelectedCity} from '../../store/interface/selectors';
 import '../../../node_modules/leaflet/dist/leaflet.css';
 
 const Map = (props) => {
-  const {className, offers, currentCity, activeCard} = props;
+  const {className, offers, currentCity, activeCard, currentOffer} = props;
   const zoom = 12;
   const mapRef = useRef();
 
@@ -40,6 +40,10 @@ const Map = (props) => {
     const activeIconUrl = `./img/pin-active.svg`;
     const iconSize = [30, 30];
 
+    if (currentOffer) {
+      offers.push(currentOffer);
+    }
+
     const pins = offers
     .filter((offer) => offer.city === currentCity)
     .map((offer) => {
@@ -66,7 +70,8 @@ Map.propTypes = {
   className: PropTypes.string,
   currentCity: PropTypes.string,
   offers: offersPropTypes,
-  activeCard: offerPropTypes
+  activeCard: offerPropTypes,
+  currentOffer: offerPropTypes
 };
 
 const mapStateToProps = (state) => ({

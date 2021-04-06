@@ -11,11 +11,23 @@ const OfferCard = (props) => {
   const {cardClasses, offer, onCardHover, onCardBlur, onFavoriteClick} = props;
   const {id, title, previewImage, price, isPremium, type, rating, isFavorite} = offer;
 
+  const handleCardHover = () => {
+    if (cardClasses === `cities__place-card`) {
+      onCardHover(offer);
+    }
+  };
+
+  const handleCardBlur = () => {
+    if (cardClasses === `cities__place-card`) {
+      onCardBlur(null);
+    }
+  };
+
   return (
     <article
       className={`${cardClasses} place-card`}
-      onMouseEnter={() => onCardHover(offer)}
-      onMouseLeave={() => onCardBlur(null)}
+      onMouseEnter={() => handleCardHover()}
+      onMouseLeave={() => handleCardBlur()}
     >
       {isPremium ? <div className="place-card__mark">
         <span>Premium</span>
