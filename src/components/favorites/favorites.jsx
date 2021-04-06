@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {getFavoriteOffers, getFavoritesLoadStatus} from '../../store/data/selectors';
+import {getFavoriteOffers, getFavoritesLoadStatus} from '../../store/app-data/selectors';
 import PropTypes from 'prop-types';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import LoadingScreen from '../loading-screen/loading-screen';

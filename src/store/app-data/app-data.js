@@ -2,7 +2,7 @@ import {ActionsTypes} from '../actions';
 
 const initialState = {
   offers: [],
-  offer: {},
+  offer: null,
   reviews: [],
   nearbyOffers: [],
   favoriteOffers: [],
@@ -39,7 +39,7 @@ const appData = (state = initialState, action) => {
       return {
         ...state,
         isOfferDataLoaded: false,
-        offer: {},
+        offer: null,
         reviews: [],
         nearbyOffers: []
       };

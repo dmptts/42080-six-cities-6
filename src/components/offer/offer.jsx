@@ -14,7 +14,7 @@ import reviewsPropTypes from '../reviews-list/reviews-list.prop';
 import offerPropTypes from './offer.prop';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import {AppRoutes} from '../../const';
-import {getNearbyOffers, getOffer, getOfferLoadStatus, getReviews} from '../../store/data/selectors';
+import {getNearbyOffers, getOffer, getOfferLoadStatus, getReviews} from '../../store/app-data/selectors';
 import {resetOfferData, setActiveCard} from '../../store/actions';
 
 const Offer = ({isOfferDataLoaded, offer, reviews, nearbyOffers, onLoadData, onDataLoaded, onUnmount}) => {

@@ -5,7 +5,7 @@ import Review from '../review/review';
 import reviewsPropTypes from './reviews-list.prop';
 import ReviewForm from '../review-form/review-form';
 import {MAX_REVIEWS_RENDERED} from '../../const';
-import {getReviews, getReviewsLoadStatus} from '../../store/data/selectors';
+import {getReviews, getReviewsLoadStatus} from '../../store/app-data/selectors';
 import dayjs from 'dayjs';
 
 const ReviewsList = ({reviews, offerID}) => {

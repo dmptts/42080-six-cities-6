@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {fetchReviews, postReview} from '../../store/api-actions';
 import {getAuthStatus} from '../../store/user/selectors';
-import {getReviewFormStatus} from '../../store/interface/selectors';
+import {getReviewFormStatus} from '../../store/app-interface/selectors';
 import {ReviewFormStatuses} from '../../const';
 import {setReviewFormStatus} from '../../store/actions';
 

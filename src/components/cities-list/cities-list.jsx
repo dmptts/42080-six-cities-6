@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {changeCity} from '../../store/actions';
-import {getSelectedCity} from '../../store/interface/selectors';
+import {getSelectedCity} from '../../store/app-interface/selectors';
 import citiesPropTypes from './cities-list.prop';
 
 const CitiesList = (props) => {

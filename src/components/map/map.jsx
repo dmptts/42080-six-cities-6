@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import offersPropTypes from '../offers-list/offers-list.prop';
 import offerPropTypes from '../offer/offer.prop';
 import {CitiesCoords} from '../../const';
-import {getActiveCard, getSelectedCity} from '../../store/interface/selectors';
+import {getActiveCard, getSelectedCity} from '../../store/app-interface/selectors';
 
 import '../../../node_modules/leaflet/dist/leaflet.css';
 

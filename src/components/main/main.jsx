@@ -6,7 +6,7 @@ import LoadingScreen from '../loading-screen/loading-screen';
 import Navigation from '../navigation/navigation';
 import CitiesList from '../cities-list/cities-list';
 import citiesPropTypes from '../cities-list/cities-list.prop';
-import {getOffersLoadStatus} from '../../store/data/selectors';
+import {getOffersLoadStatus} from '../../store/app-data/selectors';
 import {resetOffers} from '../../store/actions';
 import CityOffers from '../city-offers/city-offers';
 

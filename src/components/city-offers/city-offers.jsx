@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {getOffers} from '../../store/data/selectors';
-import {getSelectedCity, getSortingType} from '../../store/interface/selectors';
+import {getOffers} from '../../store/app-data/selectors';
+import {getSelectedCity, getSortingType} from '../../store/app-interface/selectors';
 import Sorting from '../sorting/sorting';
 import OffersList from '../offers-list/offers-list';
 import Map from '../map/map';

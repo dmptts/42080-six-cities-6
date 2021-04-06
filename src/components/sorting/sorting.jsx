@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {SortingTypes} from '../../const';
 import {changeSorting} from '../../store/actions';
 import {connect} from 'react-redux';
-import {getSortingType} from '../../store/interface/selectors';
+import {getSortingType} from '../../store/app-interface/selectors';
 
 const Sorting = ({sortingType, onSortingOptionClick}) => {
   const [sortingState, setSortingState] = useState(false);
