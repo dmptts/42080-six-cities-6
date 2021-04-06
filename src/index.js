@@ -9,8 +9,9 @@ import {createAPI} from './store/api';
 import {redirect} from './store/middlewares/redirect';
 import App from './components/app/app';
 import {requireAuth} from './store/api-actions';
+import {checkAuthStatus} from './store/actions';
 
-const api = createAPI();
+const api = createAPI(() => store.dispatch(checkAuthStatus(false)));
 
 const store = createStore(
     rootReducer,

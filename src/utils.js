@@ -16,7 +16,7 @@ export const sortOffers = (offers, sortingType) => {
 };
 
 export const adaptOfferToClient = (offer) => {
-  return {
+  const adaptedOffer = {
     ...offer,
     city: offer.city.name,
     previewImage: offer.preview_image,
@@ -29,10 +29,19 @@ export const adaptOfferToClient = (offer) => {
       avatarUrl: offer.host.avatar_url
     }
   };
+
+  delete adaptedOffer.preview_image;
+  delete adaptedOffer.is_favorite;
+  delete adaptedOffer.is_premium;
+  delete adaptedOffer.max_adults;
+  delete adaptedOffer.host.avatar_url;
+  delete adaptedOffer.host.is_pro;
+
+  return adaptedOffer;
 };
 
 export const adaptReviewToClient = (review) => {
-  return {
+  const adaptedReview = {
     ...review,
     user: {
       ...review.user,
@@ -40,4 +49,9 @@ export const adaptReviewToClient = (review) => {
       isPro: review.user.is_pro
     }
   };
+
+  delete adaptedReview.user.is_pro;
+  delete adaptedReview.user.avatar_url;
+
+  return adaptedReview;
 };

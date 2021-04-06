@@ -33,5 +33,6 @@ export const APIRoutes = {
   OFFERS: `/hotels`,
   COMMENTS: `/comments`,
   LOGIN: `/login`,
-  FAVORITE: `/favorite`
+  FAVORITE: `/favorite`,
+  NOT_FOUND: `/not-found`
 };

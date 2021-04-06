@@ -19,7 +19,7 @@ export const fetchOfferById = (id) => (dispatch, _getState, api) => {
     .then(({data}) => dispatch(loadOffer(adaptOfferToClient(data))))
     .catch((error) => {
       if (error.response && error.response.status === 404) {
-        dispatch(redirect(`/not-found`));
+        dispatch(redirect(APIRoutes.NOT_FOUND));
       }
     });
 };
@@ -60,7 +60,7 @@ export const requireAuth = () => (dispatch, _getState, api) => {
 export const login = ({email, password}) => (dispatch, _getState, api) => {
   api.post(APIRoutes.LOGIN, {email, password})
     .then(({data}) => dispatch(getUserData(data)))
-    .then(() => dispatch(redirect(`/`)));
+    .then(() => dispatch(redirect(APIRoutes.ROOT)));
 };
 
 export const postReview = ({comment, rating}, id) => (_dispatch, _getState, api) => {
@@ -78,6 +78,11 @@ export const fetchFavorites = () => (dispatch, _getState, api) => {
     });
 };
 
-export const postFavorite = (status, id) => (_dispatch, _getState, api) => {
-  api.post(`${APIRoutes.FAVORITE}/${id}/${status}`);
+export const postFavorite = (status, id) => (dispatch, _getState, api) => {
+  api.post(`${APIRoutes.FAVORITE}/${id}/${status}`)
+    .catch((error) => {
+      if (error.response && error.response.status === 401) {
+        dispatch(redirect(APIRoutes.LOGIN));
+      }
+    });
 };
