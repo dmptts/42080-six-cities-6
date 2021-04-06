@@ -26,7 +26,8 @@ export const AppRoutes = {
   ROOT: `/`,
   LOGIN: `/login`,
   FAVORITES: `/favorites`,
-  OFFER: `/offer`
+  OFFER: `/offer`,
+  NOT_FOUND: `/not-found`
 };
 
 export const APIRoutes = {
@@ -34,5 +35,10 @@ export const APIRoutes = {
   COMMENTS: `/comments`,
   LOGIN: `/login`,
   FAVORITE: `/favorite`,
-  NOT_FOUND: `/not-found`
+};
+
+export const ReviewFormStatuses = {
+  OK: `OK`,
+  SENT: `SENT`,
+  ERROR: `ERROR`,
 };

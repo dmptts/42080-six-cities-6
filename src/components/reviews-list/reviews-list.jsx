@@ -6,12 +6,13 @@ import reviewsPropTypes from './reviews-list.prop';
 import ReviewForm from '../review-form/review-form';
 import {MAX_REVIEWS_RENDERED} from '../../const';
 import {getReviews, getReviewsLoadStatus} from '../../store/data/selectors';
+import dayjs from 'dayjs';
 
 const ReviewsList = ({reviews, offerID}) => {
   return <section className="property__reviews reviews">
     <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
     <ul className="reviews__list">
-      {reviews.slice(-MAX_REVIEWS_RENDERED).map((review) => <Review key={review.id} review={review} />)}
+      {reviews.slice(-MAX_REVIEWS_RENDERED).sort((reviewA, reviewB) => dayjs(reviewA.date) - dayjs(reviewB.date)).map((review) => <Review key={review.id} review={review} />)}
     </ul>
     <ReviewForm offerID={offerID} />
   </section>;

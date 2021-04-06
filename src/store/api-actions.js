@@ -1,6 +1,6 @@
-import {loadOffers, loadOffer, loadReviews, loadNearbyOffers, redirect, getUserData, checkAuthStatus, loadFavorites} from './actions';
+import {loadOffers, loadOffer, loadReviews, loadNearbyOffers, redirect, getUserData, checkAuthStatus, loadFavorites, setReviewFormStatus} from './actions';
 import {adaptOfferToClient, adaptReviewToClient} from '../utils';
-import {APIRoutes} from '../const';
+import {APIRoutes, AppRoutes, ReviewFormStatuses} from '../const';
 
 export const fetchOffers = () => (dispatch, _getState, api) => {
   api.get(APIRoutes.OFFERS)
@@ -19,7 +19,7 @@ export const fetchOfferById = (id) => (dispatch, _getState, api) => {
     .then(({data}) => dispatch(loadOffer(adaptOfferToClient(data))))
     .catch((error) => {
       if (error.response && error.response.status === 404) {
-        dispatch(redirect(APIRoutes.NOT_FOUND));
+        dispatch(redirect(AppRoutes.NOT_FOUND));
       }
     });
 };
@@ -60,11 +60,13 @@ export const requireAuth = () => (dispatch, _getState, api) => {
 export const login = ({email, password}) => (dispatch, _getState, api) => {
   api.post(APIRoutes.LOGIN, {email, password})
     .then(({data}) => dispatch(getUserData(data)))
-    .then(() => dispatch(redirect(APIRoutes.ROOT)));
+    .then(() => dispatch(redirect(AppRoutes.ROOT)));
 };
 
-export const postReview = ({comment, rating}, id) => (_dispatch, _getState, api) => {
-  api.post(`${APIRoutes.COMMENTS}/${id}`, {comment, rating});
+export const postReview = ({comment, rating}, id) => (dispatch, _getState, api) => {
+  api.post(`${APIRoutes.COMMENTS}/${id}`, {comment, rating})
+    .then(() => dispatch(setReviewFormStatus(ReviewFormStatuses.OK)))
+    .catch(() => dispatch(setReviewFormStatus(ReviewFormStatuses.ERROR)));
 };
 
 export const fetchFavorites = () => (dispatch, _getState, api) => {
@@ -82,7 +84,7 @@ export const postFavorite = (status, id) => (dispatch, _getState, api) => {
   api.post(`${APIRoutes.FAVORITE}/${id}/${status}`)
     .catch((error) => {
       if (error.response && error.response.status === 401) {
-        dispatch(redirect(APIRoutes.LOGIN));
+        dispatch(redirect(AppRoutes.LOGIN));
       }
     });
 };

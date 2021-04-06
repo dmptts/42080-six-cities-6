@@ -1,10 +1,11 @@
 import {ActionsTypes} from '../actions';
-import {DEFAULT_CITY, SortingTypes} from '../../const';
+import {DEFAULT_CITY, ReviewFormStatuses, SortingTypes} from '../../const';
 
 const initialState = {
   city: DEFAULT_CITY,
   sortingType: SortingTypes.POPULARITY_DESCENDING,
-  activeCard: null
+  activeCard: null,
+  reviewFormStatus: ReviewFormStatuses.OK
 };
 
 const appInterface = (state = initialState, action) => {
@@ -28,6 +29,11 @@ const appInterface = (state = initialState, action) => {
       return {
         ...state,
         activeCard: action.payload
+      };
+    case ActionsTypes.SET_REVIEW_FORM_STATUS:
+      return {
+        ...state,
+        reviewFormStatus: action.payload
       };
   }
 

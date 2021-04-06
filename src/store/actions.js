@@ -13,7 +13,8 @@ export const ActionsTypes = {
   RESET_OFFER_DATA: `data/resetOfferData`,
   LOAD_FAVORITES: `data/loadFavorites`,
   RESET_FAVORITES: `data/resetFavorites`,
-  RESET_OFFERS: `data/resetOffers`
+  RESET_OFFERS: `data/resetOffers`,
+  SET_REVIEW_FORM_STATUS: `interface/setReviewFormStatus`
 };
 
 export const changeCity = (city) => ({
@@ -86,4 +87,9 @@ export const resetFavorites = () => ({
 
 export const resetOffers = () => ({
   type: ActionsTypes.RESET_OFFERS
+});
+
+export const setReviewFormStatus = (status) => ({
+  type: ActionsTypes.SET_REVIEW_FORM_STATUS,
+  payload: status
 });
