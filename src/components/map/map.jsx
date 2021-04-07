@@ -60,7 +60,11 @@ const Map = (props) => {
       );
     });
 
-    leaflet.layerGroup(pins).addTo(mapRef.current);
+    const pinsLayerGroup = leaflet.layerGroup(pins).addTo(mapRef.current);
+
+    return () => {
+      pinsLayerGroup.eachLayer((layer) => pinsLayerGroup.removeLayer(layer));
+    };
   }, [currentCity, offers, activeCard]);
 
   return <section id="map" className={`${className} map`} ref={mapRef}></section>;
