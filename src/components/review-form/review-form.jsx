@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {fetchReviews, postReview} from '../../store/api-actions';
+import {postReview} from '../../store/api-actions';
 import {getAuthStatus} from '../../store/user/selectors';
 import {getReviewFormStatus} from '../../store/app-interface/selectors';
 import {ReviewFormStatuses} from '../../const';
@@ -126,7 +126,6 @@ const mapDispatchToProps = (dispatch) => ({
   onSubmit: (reviewData, id) => {
     dispatch(setReviewFormStatus(ReviewFormStatuses.SENT));
     dispatch(postReview(reviewData, id));
-    dispatch(fetchReviews(id));
   }
 });
 

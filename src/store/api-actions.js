@@ -66,7 +66,8 @@ export const login = ({email, password}) => (dispatch, _getState, api) => {
 export const postReview = ({comment, rating}, id) => (dispatch, _getState, api) => {
   api.post(`${APIRoutes.COMMENTS}/${id}`, {comment, rating})
     .then(() => dispatch(setReviewFormStatus(ReviewFormStatuses.OK)))
-    .catch(() => dispatch(setReviewFormStatus(ReviewFormStatuses.ERROR)));
+    .catch(() => dispatch(setReviewFormStatus(ReviewFormStatuses.ERROR)))
+    .then(() => dispatch(fetchReviews(id)));
 };
 
 export const fetchFavorites = () => (dispatch, _getState, api) => {
