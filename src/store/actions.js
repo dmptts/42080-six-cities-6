@@ -14,7 +14,10 @@ export const ActionsTypes = {
   LOAD_FAVORITES: `data/loadFavorites`,
   RESET_FAVORITES: `data/resetFavorites`,
   RESET_OFFERS: `data/resetOffers`,
-  SET_REVIEW_FORM_STATUS: `interface/setReviewFormStatus`
+  SET_REVIEW_FORM_STATUS: `interface/setReviewFormStatus`,
+  UPDATE_OFFERS: `data/updateOffers`,
+  UPDATE_OFFER: `data/updateOffer`,
+  UPDATE_FAVORITES: `data/updateFavorites`
 };
 
 export const changeCity = (city) => ({
@@ -92,4 +95,19 @@ export const resetOffers = () => ({
 export const setReviewFormStatus = (status) => ({
   type: ActionsTypes.SET_REVIEW_FORM_STATUS,
   payload: status
+});
+
+export const updateOffers = (id, offer) => ({
+  type: ActionsTypes.UPDATE_OFFERS,
+  payload: {id, offer}
+});
+
+export const updateOffer = (offer) => ({
+  type: ActionsTypes.UPDATE_OFFER,
+  payload: offer
+});
+
+export const updateFavorites = (id, offer) => ({
+  type: ActionsTypes.UPDATE_FAVORITES,
+  payload: {id, offer}
 });

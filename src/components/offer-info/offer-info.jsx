@@ -1,9 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {fetchOfferById, postFavorite} from '../../store/api-actions';
+import {postFavorite} from '../../store/api-actions';
 import PropTypes from 'prop-types';
 import Host from '../host/host';
 import offerPropTypes from '../offer/offer.prop';
+import {updateOffer} from '../../store/actions';
 
 const OfferInfo = ({offer, onFavoriteClick}) => {
   const {id, isPremium, isFavorite, title, rating, type, bedrooms, maxAdults, price, goods, description} = offer;
@@ -20,7 +21,10 @@ const OfferInfo = ({offer, onFavoriteClick}) => {
         className={`property__bookmark-button button${isFavorite ? ` property__bookmark-button--active` : ``}`}
         type="button"
         onClick={() => {
-          onFavoriteClick(Number(!isFavorite), id);
+          onFavoriteClick(Number(!isFavorite), id, {
+            ...offer,
+            isFavorite: !isFavorite
+          });
         }}
       >
         <svg className="property__bookmark-icon" width="31" height="33">
@@ -79,9 +83,9 @@ OfferInfo.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onFavoriteClick(status, id) {
+  onFavoriteClick(status, id, offer) {
     dispatch(postFavorite(status, id));
-    dispatch(fetchOfferById(id));
+    dispatch(updateOffer(offer));
   }
 });
 

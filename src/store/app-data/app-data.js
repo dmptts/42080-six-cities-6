@@ -61,6 +61,31 @@ const appData = (state = initialState, action) => {
         offers: [],
         isOffersLoaded: false
       };
+    case ActionsTypes.UPDATE_OFFERS:
+      const updatedOfferIndex = state.offers.findIndex((offer) => offer.id === action.payload.id);
+      const offersCopy = state.offers.slice();
+
+      offersCopy.splice(updatedOfferIndex, 1, action.payload.offer);
+
+      return {
+        ...state,
+        offers: offersCopy
+      };
+    case ActionsTypes.UPDATE_OFFER:
+      return {
+        ...state,
+        offer: action.payload
+      };
+    case ActionsTypes.UPDATE_FAVORITES:
+      const updatedFavoriteIndex = state.offers.findIndex((offer) => offer.id === action.payload.id);
+      const favoritesCopy = state.offers.slice();
+
+      favoritesCopy.splice(updatedFavoriteIndex, 1);
+
+      return {
+        ...state,
+        favoriteOffers: favoritesCopy
+      };
   }
 
   return state;

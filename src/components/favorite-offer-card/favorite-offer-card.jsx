@@ -1,10 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {fetchFavorites, postFavorite} from '../../store/api-actions';
+import {postFavorite} from '../../store/api-actions';
 import offerPropTypes from '../offer/offer.prop';
 import {AppRoutes} from '../../const';
 import {Link} from 'react-router-dom';
+import {updateFavorites} from '../../store/actions';
 
 const FavoriteCard = ({offer, onFavoriteClick}) => {
   const {id, previewImage, price, isFavorite, rating, title, type} = offer;
@@ -25,7 +26,10 @@ const FavoriteCard = ({offer, onFavoriteClick}) => {
           className="place-card__bookmark-button place-card__bookmark-button--active button"
           type="button"
           onClick={() => {
-            onFavoriteClick(Number(!isFavorite), id);
+            onFavoriteClick(Number(!isFavorite), id, {
+              ...offer,
+              isFavorite: !isFavorite
+            });
           }}
         >
           <svg className="place-card__bookmark-icon" width="18" height="19">
@@ -54,9 +58,9 @@ FavoriteCard.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onFavoriteClick: (status, id) => {
+  onFavoriteClick: (status, id, offer) => {
     dispatch(postFavorite(status, id));
-    dispatch(fetchFavorites());
+    dispatch(updateFavorites(id, offer));
   }
 });
 
