@@ -18,7 +18,7 @@ const ReviewForm = ({authStatus, offerID, onSubmit, reviewFormStatus}) => {
   const {rating, review, isFormActive, isSubmitActive} = reviewForm;
 
   useEffect(() => {
-    if (reviewFormStatus !== ReviewFormStatuses.OK) {
+    if (reviewFormStatus === ReviewFormStatuses.SENT) {
       setReviewForm({
         ...reviewForm,
         rating: null,
@@ -58,11 +58,9 @@ const ReviewForm = ({authStatus, offerID, onSubmit, reviewFormStatus}) => {
     );
   };
 
-  if (reviewFormStatus === ReviewFormStatuses.ERROR) {
-    return <p>Error occured</p>;
-  }
-
-  return authStatus && <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+  return authStatus &&
+  <form className="reviews__form form" action="#" method="post" onSubmit={handleFormSubmit}>
+    {(reviewFormStatus === ReviewFormStatuses.ERROR) && <p>Error occured. Try again</p>}
     <label className="reviews__label form__label" htmlFor="review">Your review</label>
     <div className="reviews__rating-form form__rating" onChange={handleFieldChange}>
       <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" defaultChecked={rating === `5`} disabled={!isFormActive} />
