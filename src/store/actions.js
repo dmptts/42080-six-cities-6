@@ -17,7 +17,8 @@ export const ActionsTypes = {
   SET_REVIEW_FORM_STATUS: `interface/setReviewFormStatus`,
   UPDATE_OFFERS: `data/updateOffers`,
   UPDATE_OFFER: `data/updateOffer`,
-  UPDATE_FAVORITES: `data/updateFavorites`
+  UPDATE_FAVORITES: `data/updateFavorites`,
+  CHANGE_INIT_STATUS: `user/changeInitStatus`
 };
 
 export const changeCity = (city) => ({
@@ -110,4 +111,9 @@ export const updateOffer = (offer) => ({
 export const updateFavorites = (id, offer) => ({
   type: ActionsTypes.UPDATE_FAVORITES,
   payload: {id, offer}
+});
+
+export const changeInitStatus = (status) => ({
+  type: ActionsTypes.CHANGE_INIT_STATUS,
+  payload: status
 });

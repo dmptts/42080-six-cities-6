@@ -1,4 +1,4 @@
-import {loadOffers, loadOffer, loadReviews, loadNearbyOffers, redirect, getUserData, checkAuthStatus, loadFavorites, setReviewFormStatus} from './actions';
+import {loadOffers, loadOffer, loadReviews, loadNearbyOffers, redirect, getUserData, checkAuthStatus, loadFavorites, setReviewFormStatus, changeInitStatus} from './actions';
 import {adaptOfferToClient, adaptReviewToClient} from '../utils';
 import {APIRoutes, AppRoutes, ReviewFormStatuses} from '../const';
 
@@ -54,7 +54,8 @@ export const requireAuth = () => (dispatch, _getState, api) => {
       dispatch(checkAuthStatus(true));
       dispatch(getUserData(data));
     })
-    .catch(() => {});
+    .catch(() => {})
+    .then(() => dispatch(changeInitStatus(true)));
 };
 
 export const login = ({email, password}) => (dispatch, _getState, api) => {

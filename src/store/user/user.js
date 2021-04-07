@@ -1,6 +1,7 @@
 import {ActionsTypes} from '../actions';
 
 const initialState = {
+  init: false,
   authStatus: false,
   user: {}
 };
@@ -16,6 +17,11 @@ const user = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload
+      };
+    case ActionsTypes.CHANGE_INIT_STATUS:
+      return {
+        ...state,
+        init: action.payload
       };
   }
 

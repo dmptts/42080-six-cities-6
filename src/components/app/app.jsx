@@ -1,17 +1,20 @@
 import React from 'react';
 import {Router, Switch, Route} from 'react-router-dom';
 import browserHistory from '../../browser-history';
+import PropTypes from 'prop-types';
 import Main from '../main/main';
 import Login from '../login/login';
 import Favorites from '../favorites/favorites';
 import Offer from '../offer/offer';
 import PrivateRoute from '../private-route/private-route';
 import NotFound from '../not-found/not-found';
-import offersPropTypes from '../offers-list/offers-list.prop';
 import {AppRoutes, Cities} from '../../const';
+import {connect} from 'react-redux';
+import {getInitStatus} from '../../store/user/selectors';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-const App = () => {
-  return (
+const App = ({isInit}) => {
+  return (isInit ?
     <Router history={browserHistory}>
       <Switch>
         <Route path={AppRoutes.ROOT} exact>
@@ -33,12 +36,17 @@ const App = () => {
           <NotFound />
         </Route>
       </Switch>
-    </Router>
+    </Router> : <LoadingScreen />
   );
 };
 
 App.propTypes = {
-  offers: offersPropTypes,
+  isInit: PropTypes.bool.isRequired
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  isInit: getInitStatus(state)
+});
+
+export {App};
+export default connect(mapStateToProps, null)(App);
