@@ -60,7 +60,10 @@ export const requireAuth = () => (dispatch, _getState, api) => {
 
 export const login = ({email, password}) => (dispatch, _getState, api) => {
   api.post(APIRoutes.LOGIN, {email, password})
-    .then(({data}) => dispatch(getUserData(data)))
+    .then(({data}) => {
+      dispatch(checkAuthStatus(true));
+      dispatch(getUserData(data));
+    })
     .then(() => dispatch(redirect(AppRoutes.ROOT)));
 };
 
